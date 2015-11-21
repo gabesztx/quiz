@@ -1,0 +1,21 @@
+<html ng-app="socketApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="dist/css/style.css">
+</head>
+<body>
+<div ng-controller="hallController as vm">
+    <div class="character animate-repeat"
+         ng-repeat="(key, value) in vm.userListData"
+         ng-style="{'background-color': 'red' }">
+        <p ng-bind="value.name"></p>
+    </div>
+
+</div>
+<script type="text/javascript" src="node_modules/angular/angular.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="node_modules/angular-animate/angular-animate.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="node_modules/socket.io-client/socket.io.js"></script>
+<script type="text/javascript" src="dist/js/main.js" charset="utf-8"></script>
+</body>
+</html>

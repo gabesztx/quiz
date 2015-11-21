@@ -1,0 +1,1 @@
+require("./js/module/main.js");
