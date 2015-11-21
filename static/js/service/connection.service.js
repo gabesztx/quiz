@@ -6,7 +6,7 @@ class ConnectionService {
   constructor() {
     this.socket;
     //this.socketUrl = '192.168.1.128';
-    this.socketUrl = 'https://lensasocket.herokuapp.com';
+    this.socketUrl = 'https://lensaquiz.herokuapp.com';
     this.port = '5000';
     this.isConnected = false;
   }
