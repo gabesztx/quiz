@@ -5,7 +5,6 @@ class HallController {
    * @ngInject
    */
   constructor($scope, socketService) {
-    console.log('smnjdjdjb');
     this._$scope = $scope;
     this.userListData = {};
     this._socketService = socketService;
@@ -17,25 +16,21 @@ class HallController {
         .send('getUserList');
     });
   }
-
   addUser(user) {
     this.userListData[user.id] = user;
     this._$scope.$applyAsync();
     console.log('addUser', user);
   }
-
   getUserList(userList) {
     this.userListData = userList;
     this._$scope.$applyAsync();
     console.log('getUserList', userList);
   }
-
   userDisconnect(userId) {
     delete this.userListData[userId];
     this._$scope.$applyAsync();
     console.log('userDisconnect', userId);
   }
-
   registerServerChannel(){
     this._socketService
       .watchServerData((data)=> {
@@ -48,7 +43,6 @@ class HallController {
         this.userDisconnect(data);
       }, 'userDisconnect');
   }
-
 }
 
 export default HallController;
