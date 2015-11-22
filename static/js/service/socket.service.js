@@ -8,8 +8,8 @@ class SocketService {
   constructor(httpService) {
     this.socket;
     this._httpService = httpService;
-    this.socketUrl = '192.168.1.128:5000';
-    //this.socketUrl = 'https://lensaquiz.herokuapp.com';
+    //this.socketUrl = '192.168.1.128:5000';
+    this.socketUrl = 'https://lensaquiz.herokuapp.com';
   }
   /**
    * @param return register and watch server data channels
