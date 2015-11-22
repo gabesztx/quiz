@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "gulp"
+    "postinstall": "bower install && gulp"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +27,7 @@
     "less": "^2.5.3",
     "nodemon": "^1.8.1",
     "npm": "^3.4.1",
+    "postal": "^1.0.7",
     "socket.io": "^1.3.7",
     "webpack": "^1.12.6"
   }

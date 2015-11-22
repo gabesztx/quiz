@@ -3,7 +3,7 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const port = process.env.PORT || 5000;
-const connection = require('./server/connection.js');
+const connection = require('./server/connection.server.js');
 
 app
   .use('/node_modules', express.static(__dirname + '/node_modules'))
