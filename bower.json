@@ -1,0 +1,13 @@
+{
+  "name": "lensaquiz",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Gabor Martus <gabor.martus@lensa.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "dependencies": {
+    "lodash": "~3.10.1"
+  }
+}
