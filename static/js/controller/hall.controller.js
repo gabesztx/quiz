@@ -5,7 +5,7 @@ class HallController {
    * @ngInject
    */
   constructor($scope, socketService) {
-    console.log('HallController');
+    console.log('WELCOME to HallController');
     this._$scope = $scope;
     this.userListData = {};
     this._socketService = socketService;
