@@ -9,7 +9,7 @@ class HallController {
     this.userListData = {};
     this._socketService = socketService;
     this.userName = 'anonymous ' + parseInt(Math.random() * 100, 10);
-
+    console.log('hall');
     this.registerServerChannel();
     socketService.connect(()=> {
       socketService
