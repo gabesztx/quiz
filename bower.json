@@ -7,6 +7,15 @@
   ],
   "license": "ISC",
   "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
     "lodash": "~3.10.1"
   }
