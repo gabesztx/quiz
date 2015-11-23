@@ -8,7 +8,8 @@ const connectSocket = (io)=> {
             .addUser(userName, socket.id));
     });
     socket.on('getUserList', () => {
-      io.to(socket.id)
+      io
+        .to(socket.id)
         .emit('getUserList',
           userhandler
             .getUserList());

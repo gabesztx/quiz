@@ -1,3 +1,5 @@
+import characterList from './../storage/character.list.js';
+
 class HallController {
   /**
    * @param $scope
@@ -8,29 +10,34 @@ class HallController {
     this._$scope = $scope;
     this.userListData = {};
     this._socketService = socketService;
-    this.userName = 'anonymous ' + parseInt(Math.random() * 100, 10);
+    this._characterList = characterList;
+
+    this.userData = {
+      userName    :'anonymous ' + parseInt(Math.random() * 100, 10),
+      characterId :'a1'
+    };
+
     this.registerServerChannel();
-    socketService.connect(()=> {
-      socketService
-        .send('addUser', this.userName)
-        .send('getUserList');
-    });
+    socketService.socketInit(this.userData);
   }
+
   addUser(user) {
     this.userListData[user.id] = user;
     this._$scope.$applyAsync();
-    console.log('addUser', user);
+    //console.log('addUser', user);
   }
-  getUserList(userList) {
-    this.userListData = userList;
+  getUserList(userListData) {
+    this.userListData = userListData;
     this._$scope.$applyAsync();
-    console.log('getUserList', userList);
+    //console.log('getUserList', userListData);
   }
-  userDisconnect(userId) {
+
+  disconnectUser(userId) {
     delete this.userListData[userId];
     this._$scope.$applyAsync();
-    console.log('userDisconnect', userId);
+    //console.log('disconnectUser', userId);
   }
+
   registerServerChannel(){
     this._socketService
       .watchServerData((data)=> {
@@ -40,8 +47,8 @@ class HallController {
         this.getUserList(data);
       }, 'getUserList')
       .watchServerData((data)=> {
-        this.userDisconnect(data);
-      }, 'userDisconnect');
+        this.disconnectUser(data);
+      }, 'disconnectUser');
   }
 }
 

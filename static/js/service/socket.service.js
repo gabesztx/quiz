@@ -8,8 +8,17 @@ class SocketService {
   constructor(httpService) {
     this.socket;
     this._httpService = httpService;
-    //this.socketUrl = '192.168.1.128:5000';
-    this.socketUrl = 'https://lensaquiz.herokuapp.com';
+    this.socketUrl = '192.168.1.128:5000';
+    //this.socketUrl = 'https://lensaquiz.herokuapp.com';
+  }
+  /**
+   * @param socket connect
+   */
+  socketInit(userData){
+    this.connect(()=> {
+        this.send('addUser', userData);
+        this.send('getUserList');
+    });
   }
   /**
    * @param return register and watch server data channels
@@ -47,7 +56,7 @@ class SocketService {
         this._httpService.publishData('getUserList', userList);
       })
       .on('disconnect', (userId)=> {
-        this._httpService.publishData('userDisconnect', userId);
+        this._httpService.publishData('disconnectUser', userId);
       })
   }
   /**

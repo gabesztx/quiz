@@ -36,5 +36,5 @@ gulp.task('watch', function () {
   gulp.watch(sourceLess + '/**/*.less', ['css']);
 });
 
-gulp.task('default', ['css','js']);
-//gulp.task('default', ['css','js','watch']);
+//gulp.task('default', ['css','js']);
+gulp.task('default', ['css','js','watch']);

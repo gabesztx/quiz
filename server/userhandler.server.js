@@ -1,12 +1,13 @@
 const users = {};
-const addUser = (userName, userId)=> {
-  const userTag = {
-    'name' : userName,
-    'me'   : false,
-    'id'   : userId
+const addUser = (data, userId)=> {
+  const user = {
+    'name'        : data.userName,
+    'id'          : userId,
+    'characterId' : data.characterId,
+    'positions'   : parseInt(Math.random()*100)
   };
-  users[userId] = userTag;
-  return userTag;
+  users[userId] = user;
+  return user;
 };
 const removeUser = (userId)=> {
   delete users[userId];
@@ -20,3 +21,4 @@ module.exports = {
   'removeUser'  : removeUser,
   'getUserList' : getUserList
 };
+
