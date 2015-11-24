@@ -56,8 +56,8 @@ class SocketService {
       .on('addUser', (userTag)=> {
         this._httpService.publishData('addUser', userTag);
       })
-      .on('getUserList', (userList)=> {
-        this._httpService.publishData('getUserList', userList);
+      .on('getUserList', (userList, myId)=> {
+        this._httpService.publishData('getUserList', {'list':userList, 'myId':myId});
       })
       .on('disconnect', (userId)=> {
         this._httpService.publishData('disconnectUser', userId);

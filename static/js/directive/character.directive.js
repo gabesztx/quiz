@@ -1,11 +1,8 @@
 class CharacterControll {
-
   constructor() {
     this.restrict = 'E';
     this.scope = {};
     this.bindToController = {
-      getMoveCharacter: '&',
-      setMoveCharacter: '=',
       characterValue: '=',
       characterListPath: '='
     };
@@ -15,7 +12,6 @@ class CharacterControll {
   }
 
   link($scope, elem) {
-
     $scope.vm.initCharacter(elem.children().eq(0));
   }
 }

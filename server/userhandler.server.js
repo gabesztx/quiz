@@ -1,10 +1,11 @@
 const users = {};
 const addUser = (data, userId)=> {
   const user = {
-    'name'        : data.userName,
-    'id'          : userId,
-    'characterId' : data.characterId,
-    'positions'   : parseInt(Math.random()*100)
+    'name': data.userName,
+    'id': userId,
+    'characterId': data.characterId,
+    'callbackMove': '',
+    'positions': parseInt(Math.random() * 100)
   };
   users[userId] = user;
   return user;
@@ -17,8 +18,8 @@ const getUserList = ()=> {
   return users;
 };
 module.exports = {
-  'addUser'     : addUser,
-  'removeUser'  : removeUser,
-  'getUserList' : getUserList
+  'addUser': addUser,
+  'removeUser': removeUser,
+  'getUserList': getUserList
 };
 

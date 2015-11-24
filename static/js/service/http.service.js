@@ -8,7 +8,6 @@ class HttpService {
     this._postalService = postalService;
     this._postalService.setChannel('socketServerCahnnel');
   }
-
   /**
    *  subscribe channel to postal
    */

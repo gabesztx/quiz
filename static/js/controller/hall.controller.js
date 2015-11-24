@@ -4,11 +4,15 @@ class HallController {
   /**
    * @param $scope
    * @param $timeout
+   * @param $interval
    * @param {SocketService} socketService
+   * @param {PostalService} postalService
    * @ngInject
    */
-  constructor($scope, $timeout, socketService) {
+  constructor($scope, $timeout, $interval,socketService, postalService) {
     this._$scope = $scope;
+    this._postalService = postalService;
+    this.myId = '';
     this.userListData = {};
     this._socketService = socketService;
     this._characterList = characterList;
@@ -29,7 +33,8 @@ class HallController {
   }
 
   getUserList(userListData) {
-    this.userListData = userListData;
+    this.userListData = userListData.list;
+    this.myId = userListData.myId;
     this._$scope.$applyAsync();
     //console.log('getUserList', userListData);
   }
@@ -41,7 +46,7 @@ class HallController {
   }
 
   moveCharacter() {
-    console.log('move Character!');
+    this._postalService.publish('moveCharacter');
   }
 
   registerServerChannel() {

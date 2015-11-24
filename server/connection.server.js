@@ -12,7 +12,7 @@ const connectSocket = (io)=> {
         .to(socket.id)
         .emit('getUserList',
           userhandler
-            .getUserList());
+            .getUserList(),socket.id);
     });
     socket.on('disconnect', () => {
       io
