@@ -3,12 +3,9 @@ class UserHandlerService {
   /**
    * @ngInject
    */
+
   constructor() {
-    //this.characterList = characterList;
-    console.log('userHandlerService');
-  }
-  initCharacter(){
-    console.log('initCharacter');
+    //console.log('userHandlerService');
   }
 }
 export default UserHandlerService

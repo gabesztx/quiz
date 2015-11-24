@@ -10,6 +10,8 @@
         <user-character
                 ng-repeat="(key,value) in vm.userListData"
                 character-value="value"
+                get-move-character="vm.moveCharacter()"
+                set-move-character="vm.initCharacter"
                 character-list-path="vm._characterList[value.characterId]"
         >
         </user-character>

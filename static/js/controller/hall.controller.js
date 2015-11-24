@@ -3,18 +3,19 @@ import characterList from './../storage/character.list.js';
 class HallController {
   /**
    * @param $scope
+   * @param $timeout
    * @param {SocketService} socketService
    * @ngInject
    */
-  constructor($scope, socketService) {
+  constructor($scope, $timeout, socketService) {
     this._$scope = $scope;
     this.userListData = {};
     this._socketService = socketService;
     this._characterList = characterList;
 
     this.userData = {
-      userName    :'anonymous ' + parseInt(Math.random() * 100, 10),
-      characterId :'a1'
+      userName: 'anonymous ' + parseInt(Math.random() * 100, 10),
+      characterId: 'a1'
     };
 
     this.registerServerChannel();
@@ -26,6 +27,7 @@ class HallController {
     this._$scope.$applyAsync();
     //console.log('addUser', user);
   }
+
   getUserList(userListData) {
     this.userListData = userListData;
     this._$scope.$applyAsync();
@@ -38,7 +40,11 @@ class HallController {
     //console.log('disconnectUser', userId);
   }
 
-  registerServerChannel(){
+  moveCharacter() {
+    console.log('move Character!');
+  }
+
+  registerServerChannel() {
     this._socketService
       .watchServerData((data)=> {
         this.addUser(data);

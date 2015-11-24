@@ -1,9 +1,11 @@
 class CharacterControll {
+
   constructor() {
     this.restrict = 'E';
     this.scope = {};
     this.bindToController = {
-      //label: '@',
+      getMoveCharacter: '&',
+      setMoveCharacter: '=',
       characterValue: '=',
       characterListPath: '='
     };
@@ -12,8 +14,9 @@ class CharacterControll {
     this.templateUrl = 'static/templates/character.html';
   }
 
-  link(scope, elem) {
-    scope.setCurrentElement(elem.children().eq(0));
+  link($scope, elem) {
+
+    $scope.vm.initCharacter(elem.children().eq(0));
   }
 }
 export default CharacterControll;
