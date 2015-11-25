@@ -3,19 +3,21 @@ class CharacterController {
   /**
    * @param $scope
    * @param $timeout
+   * @param $window
    * @param {PostalService} postalService
    * @param {CharacterService} characterService
    * @ngInject
    */
-  constructor($scope, $timeout, postalService) {
+  constructor($scope, $timeout, $window, postalService) {
     this._$scope = $scope;
+    this._$window = $window;
     this.interactiveDom = null;
     this.interactiveDomWidth = null;
+    this.interactiveDomWidthDif = null;
     this.currentCharacter = null;
     this.character = null;
-    this.characterPostion = null;
     this.characterWidth = null;
-
+    //console.log($scope.vm.characterValue);
     //TODO: ((contener width - caharcter width) / caharcter width)*100
     //TODO: create new user contener
     if ($scope.vm.itsMe === $scope.vm.characterValue.id) {
@@ -28,6 +30,8 @@ class CharacterController {
   initMyHandler() {
     this.interactiveDom = angular.element(document.querySelector('.lobby-content'));
     this.interactiveDomWidth = this.interactiveDom[0].offsetWidth;
+    this.interactiveDomWidthDif = (this._$window.innerWidth - this.interactiveDom[0].offsetWidth)/2;
+    //console.log(this.interactiveDomWidthDif);
   }
 
   initCharacter(element) {
@@ -37,8 +41,9 @@ class CharacterController {
 
   addMouseEvent() {
     //this.interactiveDom.bind('touchstart mousedown',this.addMouseClick)
-    this.interactiveDom.bind('touchstart mousedown', (e)=> {
-      console.log(e.offsetX);
+    this.interactiveDom.bind('mousedown', (e)=> {
+      this._$scope.vm.characterValue.positions = e.clientX-this.interactiveDomWidthDif+'px';
+      this._$scope.$apply();
       //this.moveCharacter();
     })
   }
@@ -48,7 +53,7 @@ class CharacterController {
   };
 
   removeClickEvent() {
-    this.interactiveDom.unbind('touchstart mousedown',this.addMouseClick)
+    this.interactiveDom.unbind('mousedown',this.addMouseClick)
   }*/
 
   moveCharacter() {
