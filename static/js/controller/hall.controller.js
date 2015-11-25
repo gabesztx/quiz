@@ -9,7 +9,7 @@ class HallController {
    * @param {PostalService} postalService
    * @ngInject
    */
-  constructor($scope, $timeout, $interval,socketService, postalService) {
+  constructor($scope, $timeout, $interval, socketService, postalService) {
     this._$scope = $scope;
     this._$timeout = $timeout;
     this._postalService = postalService;
@@ -35,11 +35,6 @@ class HallController {
   getUserList(userListData) {
     this.userListData = userListData.list;
     this._$scope.$applyAsync();
-    this._$timeout(()=>{
-      //this._postalService.publish('initMyHandler');
-    });
-    this._socketService.myId = this.userListData.myId;
-    //console.log('getUserList', userListData);
   }
 
   whoAmI(id) {

@@ -29,8 +29,7 @@ class CharacterController {
 
   initMyHandler() {
     this.interactiveDom = angular.element(document.querySelector('.lobby-content'));
-    this.interactiveDomWidth = this.interactiveDom[0].offsetWidth;
-    this.interactiveDomWidthDif = (this._$window.innerWidth - this.interactiveDom[0].offsetWidth)/2;
+    this.interactiveDomWidthDif = (this._$window.innerWidth - this.interactiveDom[0].offsetWidth) / 2;
     //console.log(this.interactiveDomWidthDif);
   }
 
@@ -40,21 +39,20 @@ class CharacterController {
   }
 
   addMouseEvent() {
-    //this.interactiveDom.bind('touchstart mousedown',this.addMouseClick)
     this.interactiveDom.bind('mousedown', (e)=> {
-      this._$scope.vm.characterValue.positions = e.clientX-this.interactiveDomWidthDif+'px';
+      this._$scope.vm.characterValue.positions = e.clientX - this.interactiveDomWidthDif + 'px';
       this._$scope.$apply();
       //this.moveCharacter();
     })
   }
 
   /*addMouseClick() {
-    console.log('click')
-  };
+   console.log('click')
+   };
 
-  removeClickEvent() {
-    this.interactiveDom.unbind('mousedown',this.addMouseClick)
-  }*/
+   removeClickEvent() {
+   this.interactiveDom.unbind('mousedown',this.addMouseClick)
+   }*/
 
   moveCharacter() {
     console.log(this.currentCharacter);
