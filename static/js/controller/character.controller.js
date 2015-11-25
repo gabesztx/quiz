@@ -16,13 +16,32 @@ class CharacterController {
      this.initMyHandler();
     }
   }
-
+  
   initMyHandler(){
+    this.interactiveDom = angular.element(document.querySelector('.lobby-content'));
+    this.addMouseEvent();
   }
+  
   initCharacter(element) {
     this._currentDomElement = angular.element(element);
   }
+
+  addMouseEvent(){
+    //this.interactiveDom.bind('touchstart mousedown',this.addMouseClick)
+    this.interactiveDom.bind('touchstart mousedown',(e)=>{
+      console.log(e.offsetX);
+      //this.moveCharacter();
+    })
+  }
+  
+  //addMouseClick(){console.log('click')};
+  
+  removeClickEvent(){
+    this.interactiveDom.unbind('touchstart mousedown',this.addMouseClick)
+  }
+  
   moveCharacter() {
+    console.log(this._currentDomElement);
   }
 }
 export default CharacterController;
