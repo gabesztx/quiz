@@ -9,39 +9,50 @@ class CharacterController {
    */
   constructor($scope, $timeout, postalService) {
     this._$scope = $scope;
-    //postalService.channelSubscribe('moveCharacter', ()=> { this.moveCharacter()});
+    this.interactiveDom = null;
+    this.interactiveDomWidth = null;
+    this.currentCharacter = null;
+    this.character = null;
+    this.characterPostion = null;
+    this.characterWidth = null;
+
     //TODO: ((contener width - caharcter width) / caharcter width)*100
     //TODO: create new user contener
-    if($scope.vm.itsMe === $scope.vm.characterValue.id){
-     this.initMyHandler();
+    if ($scope.vm.itsMe === $scope.vm.characterValue.id) {
+      this.initMyHandler();
+      this.addMouseEvent();
     }
-  }
-  
-  initMyHandler(){
-    this.interactiveDom = angular.element(document.querySelector('.lobby-content'));
-    this.addMouseEvent();
-  }
-  
-  initCharacter(element) {
-    this._currentDomElement = angular.element(element);
+    //postalService.channelSubscribe('moveCharacter', ()=> { this.moveCharacter()});
   }
 
-  addMouseEvent(){
+  initMyHandler() {
+    this.interactiveDom = angular.element(document.querySelector('.lobby-content'));
+    this.interactiveDomWidth = this.interactiveDom[0].offsetWidth;
+  }
+
+  initCharacter(element) {
+    this.character = element;
+    this.characterWidth = element[0].offsetWidth;
+  }
+
+  addMouseEvent() {
     //this.interactiveDom.bind('touchstart mousedown',this.addMouseClick)
-    this.interactiveDom.bind('touchstart mousedown',(e)=>{
+    this.interactiveDom.bind('touchstart mousedown', (e)=> {
       console.log(e.offsetX);
       //this.moveCharacter();
     })
   }
-  
-  //addMouseClick(){console.log('click')};
-  
-  removeClickEvent(){
+
+  /*addMouseClick() {
+    console.log('click')
+  };
+
+  removeClickEvent() {
     this.interactiveDom.unbind('touchstart mousedown',this.addMouseClick)
-  }
-  
+  }*/
+
   moveCharacter() {
-    console.log(this._currentDomElement);
+    console.log(this.currentCharacter);
   }
 }
 export default CharacterController;
