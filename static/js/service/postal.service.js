@@ -11,6 +11,7 @@ class PostalService {
    */
   channelSubscribe(channelName, callback) {
     this._subscriptionDefinition = this._channel.subscribe(channelName, callback);
+    return this;
   }
   /**
    * @returns publish postal data

@@ -4,7 +4,8 @@ class CharacterControll {
     this.scope = {};
     this.bindToController = {
       characterValue: '=',
-      characterListPath: '='
+      characterListPath: '=',
+      itsMe: '='
     };
     this.controller = 'characterController';
     this.controllerAs = 'vm';

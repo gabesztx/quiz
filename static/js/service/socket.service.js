@@ -16,8 +16,10 @@ class SocketService {
    */
   socketInit(userData){
     this.connect(()=> {
-        this.send('addUser', userData);
-        this.send('getUserList');
+        this
+          .send('whoAmI')
+          .send('addUser', userData)
+          .send('getUserList')
     });
   };
 
@@ -58,6 +60,9 @@ class SocketService {
       })
       .on('getUserList', (userList, myId)=> {
         this._httpService.publishData('getUserList', {'list':userList, 'myId':myId});
+      })
+      .on('whoAmI', (myId)=> {
+        this._httpService.publishData('whoAmI', myId);
       })
       .on('disconnect', (userId)=> {
         this._httpService.publishData('disconnectUser', userId);

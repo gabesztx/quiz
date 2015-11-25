@@ -11,12 +11,12 @@ class HallController {
    */
   constructor($scope, $timeout, $interval,socketService, postalService) {
     this._$scope = $scope;
+    this._$timeout = $timeout;
     this._postalService = postalService;
-    this.myId = '';
     this.userListData = {};
+    this.myId = '0';
     this._socketService = socketService;
     this._characterList = characterList;
-
     this.userData = {
       userName: 'anonymous ' + parseInt(Math.random() * 100, 10),
       characterId: 'a1'
@@ -34,9 +34,16 @@ class HallController {
 
   getUserList(userListData) {
     this.userListData = userListData.list;
-    this.myId = userListData.myId;
     this._$scope.$applyAsync();
+    this._$timeout(()=>{
+      //this._postalService.publish('initMyHandler');
+    });
+    this._socketService.myId = this.userListData.myId;
     //console.log('getUserList', userListData);
+  }
+
+  whoAmI(id) {
+    this.myId = id;
   }
 
   disconnectUser(userId) {
@@ -46,7 +53,7 @@ class HallController {
   }
 
   moveCharacter() {
-    this._postalService.publish('moveCharacter');
+
   }
 
   registerServerChannel() {
@@ -57,6 +64,9 @@ class HallController {
       .watchServerData((data)=> {
         this.getUserList(data);
       }, 'getUserList')
+      .watchServerData((data)=> {
+        this.whoAmI(data);
+      }, 'whoAmI')
       .watchServerData((data)=> {
         this.disconnectUser(data);
       }, 'disconnectUser');

@@ -4,7 +4,7 @@ const addUser = (data, userId)=> {
     'name': data.userName,
     'id': userId,
     'characterId': data.characterId,
-    'callbackMove': '',
+    'me': false,
     'positions': parseInt(Math.random() * 100)
   };
   users[userId] = user;
