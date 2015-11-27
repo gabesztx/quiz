@@ -14,7 +14,6 @@ class HallController {
     this._$timeout = $timeout;
     this._postalService = postalService;
     this.userListData = {};
-    this.myId = '0';
     this._socketService = socketService;
     this._characterList = characterList;
     this.userData = {
