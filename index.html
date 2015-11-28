@@ -14,6 +14,7 @@
             <user-character
                     ng-repeat="(key,value) in vm.userListData"
                     character-value="value"
+                    interactive-dom="vm.interactiveDom"
                     character-list-path="vm._characterList[value.characterId]"
                     its-me="vm.myId"
             >

@@ -10,6 +10,11 @@ const connectSocket = (io)=> {
     socket.on('whoAmI', () => {
       io.to(socket.id).emit('whoAmI', socket.id);
     });
+    socket.on('addStartPos', (pos) => {
+      userhandler.addStartPos(socket.id, pos);
+      io.emit('addStartPos', socket.id, pos);
+    });
+
     socket.on('disconnect', () => {
       io.emit('disconnect', socket.id);
       userhandler.removeUser(socket.id);

@@ -14,12 +14,12 @@ class SocketService {
   /**
    * @param socket connect
    */
-  socketInit(userData){
+  socketInit(userData) {
     this.connect(()=> {
-        this
-          .send('whoAmI')
-          .send('addUser', userData)
-          .send('getUserList')
+      this
+        .send('whoAmI')
+        .send('addUser', userData)
+        .send('getUserList')
     });
   };
 
@@ -59,10 +59,13 @@ class SocketService {
         this._httpService.publishData('addUser', userTag);
       })
       .on('getUserList', (userList, myId)=> {
-        this._httpService.publishData('getUserList', {'list':userList, 'myId':myId});
+        this._httpService.publishData('getUserList', {'list': userList, 'myId': myId});
       })
       .on('whoAmI', (myId)=> {
         this._httpService.publishData('whoAmI', myId);
+      })
+      .on('addStartPos', (id, userPos)=> {
+        this._httpService.publishData(id + 'move', userPos);
       })
       .on('disconnect', (userId)=> {
         this._httpService.publishData('disconnectUser', userId);

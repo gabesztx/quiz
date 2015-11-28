@@ -14,6 +14,7 @@ class CharacterDirective {
 
   link($scope, elem) {
     $scope.vm.initCharacter(elem.children().eq(0));
+    $scope.vm.refresCharacterPos();
   }
 }
 export default CharacterDirective;

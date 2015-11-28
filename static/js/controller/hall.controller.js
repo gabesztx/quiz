@@ -6,13 +6,11 @@ class HallController {
    * @param $timeout
    * @param $interval
    * @param {SocketService} socketService
-   * @param {PostalService} postalService
    * @ngInject
    */
-  constructor($scope, $timeout, $interval, socketService, postalService) {
+  constructor($scope, $timeout, $interval, socketService) {
     this._$scope = $scope;
     this._$timeout = $timeout;
-    this._postalService = postalService;
     this.userListData = {};
     this._socketService = socketService;
     this._characterList = characterList;
@@ -20,7 +18,6 @@ class HallController {
       userName: 'anonymous ' + parseInt(Math.random() * 100, 10),
       characterId: 'a1'
     };
-
     this.registerServerChannel();
     socketService.socketInit(this.userData);
   }
@@ -44,10 +41,6 @@ class HallController {
     delete this.userListData[userId];
     this._$scope.$applyAsync();
     //console.log('disconnectUser', userId);
-  }
-
-  moveCharacter() {
-
   }
 
   registerServerChannel() {
