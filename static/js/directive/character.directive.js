@@ -11,10 +11,8 @@ class CharacterDirective {
     this.controllerAs = 'vm';
     this.templateUrl  = 'static/templates/character.html';
   }
-
   link($scope, elem) {
     $scope.vm.initCharacter(elem.children().eq(0));
-    $scope.vm.refresCharacterPos();
   }
 }
 export default CharacterDirective;
