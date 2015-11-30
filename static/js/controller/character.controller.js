@@ -1,5 +1,6 @@
 'use strict';
 class CharacterController {
+
   /**
    * @param $scope
    * @param $window
@@ -8,6 +9,7 @@ class CharacterController {
    * @param {SocketService} socketService
    * @ngInject
    */
+
   constructor($scope, $window, $interval, $timeout, socketService) {
     this._$scope = $scope;
     this._$window = $window;
@@ -17,7 +19,7 @@ class CharacterController {
     this._startPos = this._$scope.vm.characterValue.startPos;
     this._endPos = this._$scope.vm.characterValue.endPos;
     this._duration = 0;
-    this.speed = 5;
+    this.speed = 10;
 
     socketService
       .watchServerData((data)=> {
@@ -36,27 +38,24 @@ class CharacterController {
   }
 
   refresCharacterPos() {
-    this.characterWidth = this.character[0].offsetWidth;
-    this.interactiveDomWidth = this._interactiveDom.offsetWidth;
+    this.characterWidth = this.character[0].offsetWidth;    this.interactiveDomWidth = this._interactiveDom.offsetWidth;
+
     this.moveStartPos(this._$scope.vm.characterValue.startPos);
     this.moveEndPos(this._$scope.vm.characterValue.endPos);
   }
 
   moveCharacter(data) {
     this.setDuration(data);
-    //this.moveEndPos(this.calculatePercent(data));
+    this.moveEndPos(this.calculatePercent(data));
   }
 
   setDuration(data) {
     const transformData = this.calculatePercent(data);
     const interactiveDomPos = this.calculatePercent(this.getDomTransform());
-    const duration = transformData - interactiveDomPos;
+    const duration = (transformData - interactiveDomPos)/this.speed;
     const durationSec = duration < 0 ? -duration : duration;
-    const characterSpeed = (this.speed / durationSec) * this.speed;
-
-    
-    //console.log(characterSpeed);
-    //this._duration = characterSpeed;
+    this._duration = durationSec;
+    console.log(durationSec)
     //console.log(this.getDomTransform());
     //console.log(this.interactiveDomWidth, transformData, data - this.calculateWithDif());
     /* this._$interval(()=>s{
