@@ -14,7 +14,7 @@ const targetWebpackFile = require('./static/webpack.js.config.js');
 const targetLessFiles   = require('./static/less.files.path.js');
 const targetJsFiles     = './static/js.files.path.js';
 
-gulp.task('css', function () {
+gulp.task('css',()=> {
   return gulp.src(targetLessFiles)
       .pipe(less())
       .pipe(concat('style.css'))
@@ -23,14 +23,14 @@ gulp.task('css', function () {
       .pipe(livereload());
 });
 
-gulp.task('js', function () {
+gulp.task('js',()=> {
   return gulp.src(targetJsFiles)
       .pipe(gulpWebpack(targetWebpackFile))
       .pipe(gulp.dest(target+'/js'))
       .pipe(livereload());
 });
 
-gulp.task('watch', function () {
+gulp.task('watch',()=> {
   livereload.listen();
   gulp.watch(sourceJs + '/**/*.js', ['js']);
   gulp.watch(sourceLess + '/**/*.less', ['css']);

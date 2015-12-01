@@ -6,7 +6,6 @@ const addUser = (data, userId)=> {
     'id': userId,
     'characterId': data.characterId,
     'me': false,
-    'startPos': 0,
     'endPos': 0
   };
   users[userId] = user;
