@@ -16,6 +16,7 @@ class UserHandlerController {
     this._$timeout = $timeout;
     this._w = angular.element($window);
   }
+
   /**
    * init interactive dom to handler
    */
@@ -24,6 +25,7 @@ class UserHandlerController {
     this.stageResizer();
     this.addResize();
   }
+
   /**
    * add windows resizer event
    */
@@ -32,6 +34,7 @@ class UserHandlerController {
       this.stageResizer();
     });
   }
+
   /**
    * add windows handler
    */
@@ -40,6 +43,7 @@ class UserHandlerController {
       this._httpService.publishData(element + 'refresh')
     });
   }
+
   /**
    * add mouse event to interactive dom
    */

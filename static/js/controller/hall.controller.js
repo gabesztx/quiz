@@ -21,7 +21,6 @@ class HallController {
     this.registerServerChannel();
     socketService.socketInit(this.userData);
   }
-
   /**
    * add user to stage from server
    */
@@ -43,7 +42,6 @@ class HallController {
   whoAmI(id) {
     this.myId = id;
   }
-
   /**
    * user leave to server
    */
@@ -56,6 +54,7 @@ class HallController {
    * subscribe controller channels
    */
   registerServerChannel() {
+    //TODO describe channel from Postal
     this._socketService
       .watchServerData((data)=> {
         this.addUser(data);
@@ -71,5 +70,4 @@ class HallController {
       }, 'disconnectUser');
   }
 }
-
 export default HallController;
