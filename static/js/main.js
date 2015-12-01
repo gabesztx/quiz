@@ -14,8 +14,12 @@ angular.module('socketApp', ['ngAnimate'])
   .service('httpService', HttpService)
   .service('socketService', SocketService)
   .service('characterService', CharacterService)
-  .directive('userHandler', () => {return new UserHandlerDirective()})
-  .directive('userCharacter', () => {return new CharacterDirective()})
+  .directive('userHandler', () => {
+    return new UserHandlerDirective()
+  })
+  .directive('userCharacter', () => {
+    return new CharacterDirective()
+  })
   .controller('characterController', CharacterController)
   .controller('userHandlerController', UserHandlerController)
   .controller('hallController', HallController);

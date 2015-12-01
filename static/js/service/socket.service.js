@@ -8,6 +8,7 @@ class SocketService {
   constructor(httpService) {
     this._httpService = httpService;
     this.socketUrl = '192.168.1.128:5000';
+
     //this.socketUrl = 'https://lensaquiz.herokuapp.com';
   }
 

@@ -1,17 +1,17 @@
 <div class="character">
-    <div class="character-user-contener" ng-style="{transform: 'translate3d('+vm.startPos+',0,0)'}">
+    <!--<div class="character-user-contener" ng-style="{transform: 'translate3d('+vm.startPos+',0,0)'}">-->
         <div class="character-user"
              ng-style="
-         {
-         'transform'          : 'translate3d('+vm.endPos+',0,0)',
-         '-webkit-transform'  : 'translate3d('+vm.endPos+',0,0)',
-         '-webkit-transition' : 'all'+' '+vm.duration+' '+'linear',
-         'transition'         : 'all'+' '+vm.duration+' '+'linear'
-         }
+             {
+             'transition-property': vm.transProperty,
+             'transition-duration': vm.duration,
+             'transition-timing-function': 'linear',
+             'transform'          : 'translate3d('+vm.endPos+',0,0)',
+             }
          ">
             <div class="character-avatar">
                 {{vm.characterValue.endPos}}
             </div>
         </div>
-    </div>
+    <!--</div>-->
 </div>
