@@ -11,12 +11,6 @@ const addUser = (data, userId)=> {
   users[userId] = user;
   return user;
 };
-
-const addStartPos = (userId, pos)=> {
-  users[userId].startPos = pos;
-  return users;
-};
-
 const addEndPos = (userId, pos)=> {
   users[userId].endPos = pos;
   return users;
@@ -33,7 +27,6 @@ const getUserList = ()=> {
 
 module.exports = {
   'addUser': addUser,
-  'addStartPos': addStartPos,
   'addEndPos': addEndPos,
   'removeUser': removeUser,
   'getUserList': getUserList

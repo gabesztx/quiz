@@ -12,7 +12,6 @@ class UserHandlerDirective {
 
   link($scope, elem) {
     $scope.vm.initStage(elem.children().eq(0));
-    $scope.vm.addMouseEvent();
 
   }
 }

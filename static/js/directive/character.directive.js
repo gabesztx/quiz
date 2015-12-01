@@ -13,6 +13,9 @@ class CharacterDirective {
   }
   link($scope, elem) {
     $scope.vm.initCharacter(elem.children().eq(0));
+    if($scope.vm.characterValue.id === $scope.vm.itsMe){
+      $scope.vm.addMouseEvent();
+    }
   }
 }
 export default CharacterDirective;

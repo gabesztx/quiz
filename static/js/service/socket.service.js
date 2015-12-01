@@ -65,9 +65,6 @@ class SocketService {
       .on('whoAmI', (myId)=> {
         this._httpService.publishData('whoAmI', myId);
       })
-      .on('addStartPos', (id, userPos)=> {
-        //this._httpService.publishData(id + 'move', userPos);
-      })
       .on('addEndPos', (id, userPos)=> {
         this._httpService.publishData(id + 'move', userPos);
       })

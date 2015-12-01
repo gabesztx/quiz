@@ -6,12 +6,13 @@ class UserHandlerController {
    * @param $timeout
    * @param {SocketService} socketService
    * @param {HttpService} httpService
+   * @param {CharacterService} characterService
    * @ngInject
    */
-  constructor($scope, $window, $timeout, socketService, httpService) {
+  constructor($scope, $window, $timeout, socketService, httpService, characterService) {
     this._$scope = $scope;
-    this._socketService = socketService;
     this._httpService = httpService;
+    this._characterService = characterService;
     this._$window = $window;
     this._$timeout = $timeout;
     this._w = angular.element($window);
@@ -49,7 +50,7 @@ class UserHandlerController {
    */
   addMouseEvent() {
     this.interactiveDom.bind('mousedown', (e)=> {
-      this._socketService.send('addEndPos', e.clientX);
+      this._socketService.send('addEndPos', this._characterService.calculatePercent(e.clientX));
     })
   }
 }

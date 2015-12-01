@@ -10,11 +10,6 @@ const connectSocket = (io)=> {
     socket.on('whoAmI', () => {
       io.to(socket.id).emit('whoAmI', socket.id);
     });
-    socket.on('addStartPos', (pos) => {
-      //io.emit('addStartPos', socket.id, pos);
-      userhandler.addStartPos(socket.id, pos);
-    });
-
     socket.on('addEndPos', (pos) => {
       io.emit('addEndPos', socket.id, pos);
       userhandler.addEndPos(socket.id, pos);

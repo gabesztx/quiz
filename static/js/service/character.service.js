@@ -48,7 +48,8 @@ class CharacterService {
    * get character duration from interactive dom dimension from click
    */
   getCharacterDuration(data) {
-    const duration = (this.calculatePercent(data) - this.calculatePercent(this.getDomTransform())) / this.speed;
+    //console.log('getCharacterDuration', data, this.getDomTransform());
+    const duration = (data - this.calculatePercent(this.getDomTransform())) / this.speed;
     return duration < 0 ? -duration : duration;
   }
 

@@ -6,21 +6,20 @@ class CharacterController {
    * @param $interval
    * @param $timeout
    * @param {SocketService} socketService
-   * @param {CharacterService} characterService
    * @ngInject
    */
-  constructor($scope, $window, $interval, $timeout, socketService, characterService) {
+  constructor($scope, $window, $interval, $timeout, socketService) {
     this._$scope = $scope;
     this._$window = $window;
-    this._characterService = characterService;
     this._$interval = $interval;
     this._$timeout = $timeout;
-    this._interactiveDom = document.querySelector('.lobby-content');
+    this._socketService = socketService;
+    this._interactiveDom = angular.element(document.querySelector('.lobby-content'));
     this._endPos = this._$scope.vm.characterValue.endPos;
     this._duration = 0;
     this.anim = null;
     this.resizeListener = true;
-
+    this.speed = 20;
     //TODO describe channel from Postal
     socketService
       .watchServerData((data)=> {
@@ -36,26 +35,47 @@ class CharacterController {
    */
   initCharacter(element) {
     this.character = element;
+    this.characterChild = this.character.eq(0);
     this.refreshDimension();
+  }
+
+  /**
+   * add mouse event to interactive dom
+   */
+  addMouseEvent() {
+    console.log('Addmaouse');
+    this._interactiveDom.bind('mousedown', (e)=> {
+      this._socketService.send('addEndPos', this.calculatePercent(e.clientX));
+    })
   }
 
   /**
    * move character from click event
    */
   moveCharacter(data) {
-    this.currentEnd = this._characterService.calculatePercent(data);
-    this._duration = this._characterService.getCharacterDuration(data);
+    this.currentEnd = data;
     this.moveEndPos(this.currentEnd);
+  }
+
+  /**
+   * add positions to character
+   */
+  moveEndPos(data) {
+    this._$scope.vm.characterValue.endPos = data;
+    this._duration = this.getCharacterDuration(data) || 0;
+    this._endPos = ((this.calculateTransformPercent(data))) + data;
+    this._$scope.$applyAsync();
   }
 
   /**
    * window resizer interactive dom and refresh dimension params
    */
   refreshDimension() {
-    this._characterService.setInteractiveDom(this._interactiveDom);
-    this._characterService.setCharacter(this.character);
+    this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
+    this.characterWidth = this.character[0].offsetWidth;
+
     if (this.resizeListener) {
-      this._$scope.vm.characterValue.endPos = this._characterService.getResizeCalculatePositions();
+      this._$scope.vm.characterValue.endPos = this.getResizeCalculatePositions();
       this.resizeListener = false;
     }
     this._$timeout.cancel(this.anim);
@@ -64,22 +84,13 @@ class CharacterController {
       this.anim = this._$timeout(()=> {
           this.transProperty = 'all';
           this.resizeListener = true;
-          this._duration = this._characterService.getCharacterDurationResize(this.currentEnd);
+          this._duration = this.getCharacterDurationResize(this.currentEnd);
           this.moveEndPos(this.currentEnd);
         },
         300);
     };
     getDelayResize();
     this.moveEndPos(this._$scope.vm.characterValue.endPos)
-  }
-
-  /**
-   * add positions to character
-   */
-  moveEndPos(data) {
-    this._$scope.vm.characterValue.endPos = data;
-    this._endPos = ((this._characterService.calculateTransformPercent(data))) + data;
-    this._$scope.$applyAsync();
   }
 
   /**
@@ -95,6 +106,59 @@ class CharacterController {
   get endPos() {
     return this._endPos + '%';
   }
+
+  /**
+   * claculate and get click interactive dom position percent
+   */
+  calculatePercent(data) {
+    return Math.ceil((data - this.calculateWithDif()) / this.interactiveDomWidth * 100);
+  }
+
+  /**
+   * claculate and get character position percent
+   */
+  calculateTransformPercent(data) {
+    return ((this.interactiveDomWidth - this.characterWidth) / this.characterWidth) * data;
+  }
+
+  /**
+   * claculate and get character position percent
+   */
+  calculateWithDif() {
+    return (this._$window.innerWidth - this.interactiveDomWidth) / 2;
+  }
+
+  /**
+   * get character duration from interactive dom dimension from click
+   */
+  getCharacterDuration(data) {
+    const duration = (data - this.calculatePercent(this.getDomTransform())) / this.speed;
+    return duration < 0 ? -duration : duration;
+  }
+
+  /**
+   * get character duration from interactive dom dimension from resize
+   */
+  getCharacterDurationResize(data) {
+    const duration = (data - this.calculatePercent(this.getDomTransform())) / this.speed;
+    return duration < 0 ? -duration : duration;
+  }
+
+  /**
+   * get interactive dom position percent resize
+   */
+  getResizeCalculatePositions() {
+    return this.calculatePercent(this.getDomTransform());
+  }
+
+  /**
+   * get character transform position
+   */
+  getDomTransform() {
+    return Math.ceil(getComputedStyle(this.characterChild[0].children[0]).transform.split(',')[4]) + this.calculateWithDif();
+  }
+  
+  
 }
 
 export default CharacterController;

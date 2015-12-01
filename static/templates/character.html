@@ -1,7 +1,6 @@
 <div class="character">
-    <!--<div class="character-user-contener" ng-style="{transform: 'translate3d('+vm.startPos+',0,0)'}">-->
-        <div class="character-user"
-             ng-style="
+    <div class="character-user"
+         ng-style="
              {
              'transition-property': vm.transProperty,
              'transition-duration': vm.duration,
@@ -9,9 +8,8 @@
              'transform'          : 'translate3d('+vm.endPos+',0,0)',
              }
          ">
-            <div class="character-avatar">
-                {{vm.characterValue.endPos}}
-            </div>
+        <div class="character-avatar">
+            {{vm.characterValue.endPos}}
         </div>
-    <!--</div>-->
+    </div>
 </div>
