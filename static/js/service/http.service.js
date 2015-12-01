@@ -14,7 +14,9 @@ class HttpService {
   watchData(callback, channelName) {
     this._postalService.channelSubscribe(channelName, callback);
   }
-
+  /**
+   *  send data channel
+   */
   publishData(channelName, data) {
     this._postalService.publish(channelName, data);
   }

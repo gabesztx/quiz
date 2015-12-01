@@ -22,27 +22,39 @@ class HallController {
     socketService.socketInit(this.userData);
   }
 
+  /**
+   * add user to stage from server
+   */
   addUser(user) {
     this.userListData[user.id] = user;
     this._$scope.$applyAsync();
     //console.log('addUser', user);
   }
-
+  /**
+   * get all user to stage from server
+   */
   getUserList(userListData) {
     this.userListData = userListData.list;
     this._$scope.$applyAsync();
   }
-
+  /**
+   * register own id
+   */
   whoAmI(id) {
     this.myId = id;
   }
 
+  /**
+   * user leave to server
+   */
   disconnectUser(userId) {
     delete this.userListData[userId];
     this._$scope.$applyAsync();
     //console.log('disconnectUser', userId);
   }
-
+  /**
+   * subscribe controller channels
+   */
   registerServerChannel() {
     this._socketService
       .watchServerData((data)=> {
