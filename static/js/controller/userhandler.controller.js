@@ -9,7 +9,7 @@ class UserHandlerController {
    * @param {CharacterService} characterService
    * @ngInject
    */
-  constructor($scope, $window, $timeout, socketService, httpService, characterService) {
+  constructor($scope, $window, $timeout, httpService, characterService) {
     this._$scope = $scope;
     this._httpService = httpService;
     this._characterService = characterService;
