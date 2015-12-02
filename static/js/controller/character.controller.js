@@ -15,12 +15,11 @@ class CharacterController {
     this._$timeout = $timeout;
     this._socketService = socketService;
     this._interactiveDom = angular.element(document.querySelector('.lobby-content'));
-
-
     this._duration = 0;
     this.anim = null;
     this.resizeListener = true;
     this.speed = 20;
+
     //TODO describe channel from Postal
     socketService
       .watchServerData((data)=> {
@@ -35,13 +34,11 @@ class CharacterController {
    * init own character
    */
   initCharacter(element) {
-    const starPos = this._$scope.vm.characterValue.endPos;
     this.character = element;
-    this.characterChild = this.character.eq(0);
+    this.characterChild = element.children().eq(0);
+    this.currentEnd = this._$scope.vm.characterValue.endPos;
     this.refreshPositions();
-    console.log('initCharacter');
-    this._endPos = ((this.calculateTransformPercent(starPos))) + starPos;
-    //this._$scope.vm.characterValue.endPos = starPos;
+    this.moveEndPos(this._$scope.vm.characterValue.endPos)
   }
 
   /**
@@ -58,7 +55,7 @@ class CharacterController {
    */
   moveCharacter(data) {
     this.currentEnd = data;
-    console.log('moveCharacter');
+    this._duration = this.getCharacterDuration(data) || 0;
     this.moveEndPos(this.currentEnd);
   }
 
@@ -67,11 +64,17 @@ class CharacterController {
    */
   moveEndPos(data) {
     this._$scope.vm.characterValue.endPos = data;
-    this._duration = this.getCharacterDuration(data) || 0;
     this._endPos = ((this.calculateTransformPercent(data))) + data;
     this._$scope.$applyAsync();
-  }
+    this.removeAnimationListener();
+    //this.addAnimationListener();
 
+  }
+  addAnimationListener(callback){
+
+    this.characterChild[0].removeEventListener("transitionend", this.end);
+    this.characterChild[0].addEventListener("transitionend", this.end);
+  }
   /**
    * window resizer interactive dom and refresh dimension params
    */
@@ -84,9 +87,8 @@ class CharacterController {
    * window resizer interactive dom and refresh dimension params
    */
   refreshDimension() {
-    console.log('refreshDimension');
     this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
-    this.characterWidth = this.character[0].offsetWidth;
+    this.characterWidth = this.characterChild[0].offsetWidth;
     if (this.resizeListener) {
       this._$scope.vm.characterValue.endPos = this.getResizeCalculatePositions();
       this.resizeListener = false;
@@ -97,13 +99,11 @@ class CharacterController {
       this.anim = this._$timeout(()=> {
           this.transProperty = 'all';
           this.resizeListener = true;
-          this._duration = this.getCharacterDurationResize(this.currentEnd);
-          this.moveEndPos(this.currentEnd);
+          this.moveCharacter(this.currentEnd);
         },
         300);
     };
     getDelayResize();
-    console.log(this._$scope.vm.characterValue.endPos);
     this.moveEndPos(this._$scope.vm.characterValue.endPos)
   }
 
@@ -169,7 +169,7 @@ class CharacterController {
    * get character transform position
    */
   getDomTransform() {
-    return Math.ceil(getComputedStyle(this.characterChild[0].children[0]).transform.split(',')[4]) + this.calculateWithDif();
+    return Math.ceil(getComputedStyle(this.characterChild[0]).transform.split(',')[4]) + this.calculateWithDif();
   }
 
 
