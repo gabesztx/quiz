@@ -5,7 +5,6 @@ class CharacterService {
    */
   constructor($window) {
     this._$window = $window;
-    this.speed = 20;
   }
 
   /**

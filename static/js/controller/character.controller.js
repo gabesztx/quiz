@@ -15,7 +15,8 @@ class CharacterController {
     this._$timeout = $timeout;
     this._socketService = socketService;
     this._interactiveDom = angular.element(document.querySelector('.lobby-content'));
-    this._endPos = this._$scope.vm.characterValue.endPos;
+
+
     this._duration = 0;
     this.anim = null;
     this.resizeListener = true;
@@ -34,16 +35,19 @@ class CharacterController {
    * init own character
    */
   initCharacter(element) {
+    const starPos = this._$scope.vm.characterValue.endPos;
     this.character = element;
     this.characterChild = this.character.eq(0);
-    this.refreshDimension();
+    this.refreshPositions();
+    console.log('initCharacter');
+    this._endPos = ((this.calculateTransformPercent(starPos))) + starPos;
+    //this._$scope.vm.characterValue.endPos = starPos;
   }
 
   /**
    * add mouse event to interactive dom
    */
   addMouseEvent() {
-    console.log('Addmaouse');
     this._interactiveDom.bind('mousedown', (e)=> {
       this._socketService.send('addEndPos', this.calculatePercent(e.clientX));
     })
@@ -54,6 +58,7 @@ class CharacterController {
    */
   moveCharacter(data) {
     this.currentEnd = data;
+    console.log('moveCharacter');
     this.moveEndPos(this.currentEnd);
   }
 
@@ -70,10 +75,18 @@ class CharacterController {
   /**
    * window resizer interactive dom and refresh dimension params
    */
-  refreshDimension() {
+  refreshPositions() {
     this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
     this.characterWidth = this.character[0].offsetWidth;
+  }
 
+  /**
+   * window resizer interactive dom and refresh dimension params
+   */
+  refreshDimension() {
+    console.log('refreshDimension');
+    this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
+    this.characterWidth = this.character[0].offsetWidth;
     if (this.resizeListener) {
       this._$scope.vm.characterValue.endPos = this.getResizeCalculatePositions();
       this.resizeListener = false;
@@ -90,6 +103,7 @@ class CharacterController {
         300);
     };
     getDelayResize();
+    console.log(this._$scope.vm.characterValue.endPos);
     this.moveEndPos(this._$scope.vm.characterValue.endPos)
   }
 
@@ -157,8 +171,8 @@ class CharacterController {
   getDomTransform() {
     return Math.ceil(getComputedStyle(this.characterChild[0].children[0]).transform.split(',')[4]) + this.calculateWithDif();
   }
-  
-  
+
+
 }
 
 export default CharacterController;
