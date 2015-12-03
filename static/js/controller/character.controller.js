@@ -19,6 +19,8 @@ class CharacterController {
     this.anim = null;
     this.resizeListener = true;
     this.speed = 20;
+    
+    
 
     //TODO describe channel from Postal
     socketService
@@ -66,14 +68,21 @@ class CharacterController {
     this._$scope.vm.characterValue.endPos = data;
     this._endPos = ((this.calculateTransformPercent(data))) + data;
     this._$scope.$applyAsync();
-    this.removeAnimationListener();
-    //this.addAnimationListener();
-
+    this.addAnimationListener();
   }
-  addAnimationListener(callback){
+  /**
+   *
+   */
+  moveEndPosDone(){
+    console.log('end');
+  }
 
-    this.characterChild[0].removeEventListener("transitionend", this.end);
-    this.characterChild[0].addEventListener("transitionend", this.end);
+  /**
+   *
+   */
+  addAnimationListener(){
+    this.characterChild[0].removeEventListener("transitionend", this.moveEndPosDone);
+    this.characterChild[0].addEventListener("transitionend", this.moveEndPosDone);
   }
   /**
    * window resizer interactive dom and refresh dimension params
@@ -171,8 +180,6 @@ class CharacterController {
   getDomTransform() {
     return Math.ceil(getComputedStyle(this.characterChild[0]).transform.split(',')[4]) + this.calculateWithDif();
   }
-
-
 }
 
 export default CharacterController;
