@@ -21,7 +21,6 @@ class CharacterController {
     this.speed = 20;
     
     
-
     //TODO describe channel from Postal
     socketService
       .watchServerData((data)=> {
@@ -37,12 +36,14 @@ class CharacterController {
    */
   initCharacter(element) {
     this.character = element;
-    this.characterChild = element.children().eq(0);
+    this.characterChild = element.children().eq(0)[0];
     this.currentEnd = this._$scope.vm.characterValue.endPos;
     this.refreshPositions();
-    this.moveEndPos(this._$scope.vm.characterValue.endPos)
+    this._$timeout(()=>{
+      this.characterAddKeyframe();
+      this.addNewPosition(this._$scope.vm.characterValue.endPos)
+    })
   }
-
   /**
    * add mouse event to interactive dom
    */
@@ -58,32 +59,20 @@ class CharacterController {
   moveCharacter(data) {
     this.currentEnd = data;
     this._duration = this.getCharacterDuration(data) || 0;
-    this.moveEndPos(this.currentEnd);
+    this.addNewPosition(this.currentEnd);
   }
 
   /**
    * add positions to character
    */
-  moveEndPos(data) {
+  addNewPosition(data) {
     this._$scope.vm.characterValue.endPos = data;
     this._endPos = ((this.calculateTransformPercent(data))) + data;
+    this.startAnimation();
     this._$scope.$applyAsync();
-    this.addAnimationListener();
-  }
-  /**
-   *
-   */
-  moveEndPosDone(){
-    console.log('end');
   }
 
-  /**
-   *
-   */
-  addAnimationListener(){
-    this.characterChild[0].removeEventListener("transitionend", this.moveEndPosDone);
-    this.characterChild[0].addEventListener("transitionend", this.moveEndPosDone);
-  }
+
   /**
    * window resizer interactive dom and refresh dimension params
    */
@@ -97,7 +86,7 @@ class CharacterController {
    */
   refreshDimension() {
     this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
-    this.characterWidth = this.characterChild[0].offsetWidth;
+    this.characterWidth = this.characterChild.offsetWidth;
     if (this.resizeListener) {
       this._$scope.vm.characterValue.endPos = this.getResizeCalculatePositions();
       this.resizeListener = false;
@@ -110,10 +99,10 @@ class CharacterController {
           this.resizeListener = true;
           this.moveCharacter(this.currentEnd);
         },
-        300);
+        400);
     };
     getDelayResize();
-    this.moveEndPos(this._$scope.vm.characterValue.endPos)
+    this.addNewPosition(this._$scope.vm.characterValue.endPos)
   }
 
   /**
@@ -178,7 +167,7 @@ class CharacterController {
    * get character transform position
    */
   getDomTransform() {
-    return Math.ceil(getComputedStyle(this.characterChild[0]).transform.split(',')[4]) + this.calculateWithDif();
+    return Math.ceil(getComputedStyle(this.characterChild).transform.split(',')[4]) + this.calculateWithDif();
   }
 }
 

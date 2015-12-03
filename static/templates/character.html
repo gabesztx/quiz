@@ -8,8 +8,15 @@
              'transform'          : 'translate3d('+vm.endPos+',0,0)',
              }
          ">
-        <div class="character-avatar">
-            {{vm.characterValue.endPos}}
-        </div>
+        <avatar
+                character-css="vm.characterListPath.css"
+                character-keyframe="vm.characterListPath.keyframes"
+                character-add-keyframe="vm.characterAddKeyframe"
+                character-pos="vm.currentEnd"
+                character-cont="vm.character"
+                character-child="vm.characterChild"
+                start-anim="vm.startAnimation"
+                stop-anim="vm.stopAnimation"
+        ></avatar>
     </div>
 </div>
