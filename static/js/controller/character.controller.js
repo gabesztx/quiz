@@ -3,24 +3,21 @@ class CharacterController {
   /**
    * @param $scope
    * @param $window
-   * @param $interval
    * @param $timeout
    * @param {SocketService} socketService
    * @ngInject
    */
-  constructor($scope, $window, $interval, $timeout, socketService) {
+  constructor($scope, $window, $timeout, socketService) {
     this._$scope = $scope;
     this._$window = $window;
-    this._$interval = $interval;
     this._$timeout = $timeout;
     this._socketService = socketService;
     this._interactiveDom = angular.element(document.querySelector('.lobby-content'));
     this._duration = 0;
     this.anim = null;
     this.resizeListener = true;
-    this.speed = 20;
-    
-    
+    this.speed = $scope.vm.characterListPath.css.durationGlobal;
+
     //TODO describe channel from Postal
     socketService
       .watchServerData((data)=> {
@@ -39,11 +36,12 @@ class CharacterController {
     this.characterChild = element.children().eq(0)[0];
     this.currentEnd = this._$scope.vm.characterValue.endPos;
     this.refreshPositions();
-    this._$timeout(()=>{
+    this._$timeout(()=> {
       this.characterAddKeyframe();
       this.addNewPosition(this._$scope.vm.characterValue.endPos)
     })
   }
+
   /**
    * add mouse event to interactive dom
    */
@@ -52,7 +50,6 @@ class CharacterController {
       this._socketService.send('addEndPos', this.calculatePercent(e.clientX));
     })
   }
-
   /**
    * move character from click event
    */
@@ -61,17 +58,17 @@ class CharacterController {
     this._duration = this.getCharacterDuration(data) || 0;
     this.addNewPosition(this.currentEnd);
   }
-
   /**
    * add positions to character
    */
   addNewPosition(data) {
+    const currentScaleArrow = this.calculatePercent(this.getDomTransform());
     this._$scope.vm.characterValue.endPos = data;
     this._endPos = ((this.calculateTransformPercent(data))) + data;
-    this.startAnimation();
+    this.startAnimation(data, currentScaleArrow, this._duration);
     this._$scope.$applyAsync();
-  }
 
+  }
 
   /**
    * window resizer interactive dom and refresh dimension params
@@ -98,8 +95,7 @@ class CharacterController {
           this.transProperty = 'all';
           this.resizeListener = true;
           this.moveCharacter(this.currentEnd);
-        },
-        400);
+        });
     };
     getDelayResize();
     this.addNewPosition(this._$scope.vm.characterValue.endPos)
@@ -144,14 +140,6 @@ class CharacterController {
    * get character duration from interactive dom dimension from click
    */
   getCharacterDuration(data) {
-    const duration = (data - this.calculatePercent(this.getDomTransform())) / this.speed;
-    return duration < 0 ? -duration : duration;
-  }
-
-  /**
-   * get character duration from interactive dom dimension from resize
-   */
-  getCharacterDurationResize(data) {
     const duration = (data - this.calculatePercent(this.getDomTransform())) / this.speed;
     return duration < 0 ? -duration : duration;
   }

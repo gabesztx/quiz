@@ -3,16 +3,17 @@ module.exports = {
     css: {
       'width': '120px',
       'height': '90px',
-      'background-image': 'url("./static/asset/man.png")',
-      'background-size': 'cover',
-      'background-position': '0 0',
-      'animation': 'playMan 1s steps(30)',
-      'animation-iteration-count': 'infinite',
-      'animation-play-state': 'running',
-      'transform': 'scaleX(1)',
-      'transform': 'translate3d(-50%, 0, 0)',
-      '-webkit-transform': 'translate3d(-50%, 0, 0)'
+      'durationGlobal':15,
+      'durationEnd':0.7,
+      'durationStart':0.3,
+      'steps':30,
+      'scale':1,
+      'bgImage': 'url("./static/asset/man.png")'
     },
-    keyframes: '<style>@keyframes playMan { from { background-position:0 0; } to { background-position: -3600px 0; }</style>'
+    keyframes: '<style>' +
+    '@keyframes playMan { ' +
+    'from { background-position:0 0; } ' +
+    'to { background-position: -3600px 0; }' +
+    '</style>'
   }
 };

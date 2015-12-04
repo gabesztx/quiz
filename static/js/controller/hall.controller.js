@@ -14,6 +14,7 @@ class HallController {
     this.userListData = {};
     this._socketService = socketService;
     this._characterList = characterList;
+
     this.userData = {
       userName: 'anonymous ' + parseInt(Math.random() * 100, 10),
       characterId: 'a1'
