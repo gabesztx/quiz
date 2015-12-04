@@ -13,7 +13,10 @@
            '-webkit-transform': 'translate3d(-50%, 0, 0) scaleX('+vm.scale+')'
      }">
     <div class="character-status-contener"
-         ng-style="{'transform': 'scaleX('+vm.scale+')'}">
+         ng-style="{
+         'transform': 'scaleX('+vm.scale+')',
+         '-webkit-transform': 'scaleX('+vm.scale+')'
+         }">
         {{vm.characterPos}}
     </div>
 </div>

@@ -5,7 +5,7 @@ module.exports = {
       'height': '90px',
       'durationGlobal':15,
       'durationEnd':0.7,
-      'durationStart':0.3,
+      'durationStart':0.4,
       'steps':30,
       'scale':1,
       'bgImage': 'url("./static/asset/man.png")'
