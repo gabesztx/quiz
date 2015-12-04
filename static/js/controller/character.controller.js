@@ -63,7 +63,6 @@ class CharacterController {
    */
   addNewPosition(data) {
     const currentScaleArrow = this.calculatePercent(this.getDomTransform());
-    //console.log(data, this._$scope.vm.characterValue.endPos);
     this._$scope.vm.characterValue.endPos = data;
     this.startAnimation(data, currentScaleArrow, this._duration);
     this._endPos = ((this.calculateTransformPercent(data))) + data;
