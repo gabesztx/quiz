@@ -4,7 +4,6 @@ class AvatarDirective {
     this.scope = {};
     this.bindToController = {
       characterConfig: '=',
-      characterAddStyle: '=',
       characterChild: '=',
       characterPos: '=',
       startAnim: '=' // function
@@ -18,10 +17,6 @@ class AvatarDirective {
         self.speed = 100 / self.characterConfig.config.durationGlobal;
         self.duration = 0;
         self.scale = 1;
-      };
-
-      self.characterAddStyle = (elem)=> {
-        elem.append(self.characterConfig.style);
       };
 
       self.startAnim = (newPos, oldPos, duration)=> {

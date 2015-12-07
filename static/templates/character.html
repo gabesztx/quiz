@@ -8,13 +8,16 @@
          ng-style="
          {
             'transition-property': vm.transProperty,
+            '-webkit-transition-property': vm.transProperty,
             'transition-duration': vm.duration,
+            '-webkit-transition-duration': vm.duration,
             'transition-timing-function': 'linear',
-            'transform': 'translate3d('+vm.endPos+',0,0)'
+            '-webkit-transition-timing-function': 'linear',
+            'transform': 'translate3d('+vm.endPos+',0,0)',
+            '-webkit-transform': 'translate3d('+vm.endPos+',0,0)'
         }">
         <avatar
                 character-config="vm.characterListPath"
-                character-add-style="vm.characterAddStyle"
                 character-child="vm.characterChild"
                 character-pos="vm.currentEnd"
                 start-anim="vm.startAnimation"

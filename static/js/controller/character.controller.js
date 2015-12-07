@@ -34,11 +34,18 @@ class CharacterController {
     this.character = element;
     this.characterChild = element.children().eq(0)[0];
     this.currentEnd = this._$scope.vm.characterValue.endPos;
+
     this._$timeout(()=> {
       this.refreshPositions();
-      this.characterAddStyle(this.character);
+      this.character.append(this._$scope.vm.characterListPath.style);
       this.addNewPosition(this._$scope.vm.characterValue.endPos)
-    })
+    },10)
+  }
+  /**
+   * init character style
+   */
+  initCharacterStyle() {
+    console.log('initCharacterStyle');
   }
 
   /**
@@ -73,6 +80,7 @@ class CharacterController {
   addNewPosition(data) {
     const currentScaleArrow = this.calculatePercent(this.getDomTransform());
     this._$scope.vm.characterValue.endPos = data;
+    //TODO: firefox bug windows startAnimation is not a function
     this.startAnimation(data, currentScaleArrow, this._duration);
     this._endPos = ((this.calculateTransformPercent(data))) + data;
     this._$scope.$applyAsync();
