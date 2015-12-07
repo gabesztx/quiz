@@ -1,19 +1,14 @@
 <div class="character-avatar"
-     ng-style="{
-           'width': vm.avatarConfig.width,
-           'height': vm.avatarConfig.height,
-           'background-image': vm.avatarConfig.bgImage,
-           'background-size': 'cover',
-           'background-position': '0 0',
-           'animation': vm.animName + ' ' + vm.duration+'s' + ' ' + 'steps(' + vm.steps + ')',
-           '-webkit-animation': vm.animName + ' ' + vm.duration+'s' + ' ' + 'steps(' + vm.steps + ')',
-           'animation-iteration-count': 'infinite',
-           'animation-play-state': 'running',
+     ng-style="
+     {
+           '-webkit-animation-duration':vm.duration+'s',
+           'animation-duration': vm.duration+'s',
            'transform': 'translate3d(-50%, 0, 0) scaleX('+vm.scale+')',
            '-webkit-transform': 'translate3d(-50%, 0, 0) scaleX('+vm.scale+')'
      }">
     <div class="character-status-contener"
-         ng-style="{
+         ng-style="
+         {
          'transform': 'scaleX('+vm.scale+')',
          '-webkit-transform': 'scaleX('+vm.scale+')'
          }">

@@ -16,7 +16,6 @@ class CharacterController {
     this._duration = 0;
     this.anim = null;
     this.resizeListener = true;
-    this.speed = $scope.vm.characterListPath.css.durationGlobal;
 
     //TODO describe channel from Postal
     socketService
@@ -35,11 +34,11 @@ class CharacterController {
     this.character = element;
     this.characterChild = element.children().eq(0)[0];
     this.currentEnd = this._$scope.vm.characterValue.endPos;
-    this.refreshPositions();
     this._$timeout(()=> {
-      this.characterAddKeyframe();
+      this.refreshPositions();
+      this.characterAddStyle(this.character);
       this.addNewPosition(this._$scope.vm.characterValue.endPos)
-    },5)
+    })
   }
 
   /**
@@ -50,14 +49,24 @@ class CharacterController {
       this._socketService.send('addEndPos', this.calculatePercent(e.clientX));
     })
   }
+
+  getCalculatePositionsDif(pos) {
+    const currentPos = pos - this.calculatePercent(this.getDomTransform());
+    const calculatePos = currentPos < 0 ? -currentPos : currentPos;
+    if (calculatePos > 4) {
+      return calculatePos;
+    }
+  }
+
   /**
    * move character from click event
    */
   moveCharacter(data) {
     this.currentEnd = data;
-    this._duration = this.getCharacterDuration(data) || 0;
+    this._duration = this.getCharacterDuration(data);
     this.addNewPosition(this.currentEnd);
   }
+
   /**
    * add positions to character
    */
@@ -67,7 +76,6 @@ class CharacterController {
     this.startAnimation(data, currentScaleArrow, this._duration);
     this._endPos = ((this.calculateTransformPercent(data))) + data;
     this._$scope.$applyAsync();
-
   }
 
   /**
@@ -92,10 +100,10 @@ class CharacterController {
     const getDelayResize = ()=> {
       this.transProperty = 'none';
       this.anim = this._$timeout(()=> {
-          this.transProperty = 'all';
-          this.resizeListener = true;
-          this.moveCharacter(this.currentEnd);
-        },100);
+        this.transProperty = 'all';
+        this.resizeListener = true;
+        this.moveCharacter(this.currentEnd);
+      }, 100);
     };
     getDelayResize();
     this.addNewPosition(this._$scope.vm.characterValue.endPos)
@@ -140,8 +148,9 @@ class CharacterController {
    * get character duration from interactive dom dimension from click
    */
   getCharacterDuration(data) {
-    const duration = (data - this.calculatePercent(this.getDomTransform())) / this.speed;
-    return duration < 0 ? -duration : duration;
+    const duration = (data - this.calculatePercent(this.getDomTransform()))  / this._$scope.vm.characterListPath.config.durationGlobal;
+    const durationDef = duration === 0 ? duration+0.1 : duration;
+    return durationDef < 0 ? -durationDef : durationDef;
   }
 
   /**
