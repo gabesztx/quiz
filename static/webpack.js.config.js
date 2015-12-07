@@ -1,7 +1,8 @@
+require("babel-polyfill");
 
 module.exports = {
   context: __dirname,
-  entry: "./js.files.path.js",
+  entry: ["babel-polyfill", "./js.files.path.js"],
   output: {
     path: __dirname+'/dist',
     filename: "main.js"
@@ -13,7 +14,11 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel?presets[]=es2015'
+        loader: "babel-loader",
+        query: {
+          plugins: ['syntax-async-functions', 'syntax-decorators'],
+          presets: ['es2015', 'stage-0']
+        }
       }
     ]
   }

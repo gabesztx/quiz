@@ -1,19 +1,20 @@
+"use strict";
+
 import characterList from './../storage/character.list.js';
 
 class HallController {
   /**
    * @param $scope
    * @param $timeout
-   * @param $interval
    * @param {SocketService} socketService
    * @ngInject
    */
-  constructor($scope, $timeout, $interval, socketService) {
+  constructor($scope, $timeout, socketService) {
     this._$scope = $scope;
     this._$timeout = $timeout;
     this.userListData = {};
     this._socketService = socketService;
-    this._characterList = characterList;
+    this._characterList = characterList;    //TODO kiszervezni a style config filet a configba
 
     this.userData = {
       userName: 'anonymous ' + parseInt(Math.random() * 100, 10),
@@ -22,6 +23,7 @@ class HallController {
     this.registerServerChannel();
     socketService.socketInit(this.userData);
   }
+
   /**
    * add user to stage from server
    */
@@ -30,19 +32,23 @@ class HallController {
     this._$scope.$applyAsync();
     //console.log('addUser', user);
   }
+
   /**
    * get all user to stage from server
    */
   getUserList(userListData) {
     this.userListData = userListData.list;
     this._$scope.$applyAsync();
+    //console.log('getUserList', userListData);
   }
+
   /**
    * register own id
    */
   whoAmI(id) {
     this.myId = id;
   }
+
   /**
    * user leave to server
    */
@@ -51,6 +57,7 @@ class HallController {
     this._$scope.$applyAsync();
     //console.log('disconnectUser', userId);
   }
+
   /**
    * subscribe controller channels
    */

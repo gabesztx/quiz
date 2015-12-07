@@ -3,18 +3,15 @@ class UserHandlerController {
   /**
    * @param $scope
    * @param $window
-   * @param $timeout
-   * @param {SocketService} socketService
    * @param {HttpService} httpService
    * @param {CharacterService} characterService
    * @ngInject
    */
-  constructor($scope, $window, $timeout, httpService, characterService) {
+  constructor($scope, $window, httpService, characterService) {
     this._$scope = $scope;
     this._httpService = httpService;
     this._characterService = characterService;
     this._$window = $window;
-    this._$timeout = $timeout;
     this._w = angular.element($window);
   }
 
@@ -28,16 +25,17 @@ class UserHandlerController {
   }
 
   /**
-   * add windows resizer event
+   * add window resizer event
    */
   addResize() {
+    //TODO unbind
     this._w.bind('resize', ()=> {
       this.stageResizer();
     });
   }
 
   /**
-   * add windows handler
+   * add window handler
    */
   stageResizer() {
     Object.keys(this._$scope.vm.userList).forEach((element)=> {
@@ -49,6 +47,7 @@ class UserHandlerController {
    * add mouse event to interactive dom
    */
   addMouseEvent() {
+    //TODO unbind
     this.interactiveDom.bind('mousedown', (e)=> {
       this._socketService.send('addEndPos', this._characterService.calculatePercent(e.clientX));
     })

@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
@@ -17,6 +18,3 @@ app.get('/', function (req, res) {
 server.listen(port);
 
 connection(io);
-
-
-

@@ -41,12 +41,6 @@ class CharacterController {
       this.addNewPosition(this._$scope.vm.characterValue.endPos)
     },10)
   }
-  /**
-   * init character style
-   */
-  initCharacterStyle() {
-    console.log('initCharacterStyle');
-  }
 
   /**
    * add mouse event to interactive dom
