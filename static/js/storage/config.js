@@ -1,9 +1,9 @@
-module.exports = {
+const CharacterConfig = {
   a1: {
     className: 'a1',
     config: {
-      'width': '120px',
-      'height': '90px',
+      'width': 120,
+      'height': 90,
       'durationGlobal': 15,
       'durationEnd': 0.7,
       'durationStart': 0.4
@@ -30,3 +30,4 @@ module.exports = {
     '</style>'
   }
 };
+export {CharacterConfig};

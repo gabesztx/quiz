@@ -1,7 +1,5 @@
 "use strict";
 
-import characterList from './../storage/character.list.js';
-
 class HallController {
   /**
    * @param $scope
@@ -14,14 +12,13 @@ class HallController {
     this._$timeout = $timeout;
     this.userListData = {};
     this._socketService = socketService;
-    this._characterList = characterList;    //TODO kiszervezni a style config filet a configba
-
-    this.userData = {
+    this.userChooseData = {
       userName: 'anonymous ' + parseInt(Math.random() * 100, 10),
       characterId: 'a1'
     };
+
     this.registerServerChannel();
-    socketService.socketInit(this.userData);
+    socketService.socketInit(this.userChooseData);
   }
 
   /**

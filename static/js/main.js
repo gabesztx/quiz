@@ -1,23 +1,23 @@
+
 import PostalService from './service/postal.service.js';
 import HttpService from './service/http.service.js';
 import SocketService from './service/socket.service.js';
-import AvatarDirective from './directive/avatar.directive.js';
+
 import CharacterDirective from './directive/character.directive.js';
 import UserHandlerDirective from './directive/userhandler.directive.js';
 import CharacterService from './service/character.service.js';
 import HallController from './controller/hall.controller.js';
 import UserHandlerController from './controller/userhandler.controller.js';
 import CharacterController from './controller/character.controller.js';
+import {CharacterConfig} from './storage/config.js';
 
 
 angular.module('socketApp', ['ngAnimate'])
+  .value('charatcerConfig', CharacterConfig)
   .service('postalService', PostalService)
   .service('httpService', HttpService)
   .service('socketService', SocketService)
   .service('characterService', CharacterService)
-  .directive('avatar', () => {
-    return new AvatarDirective()
-  })
   .directive('userHandler', () => {
     return new UserHandlerDirective()
   })

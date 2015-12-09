@@ -1,8 +1,8 @@
 <div class="character"
      ng-style="
      {
-         'width': vm.characterListPath.config.width,
-         'height': vm.characterListPath.config.height
+         'width': vm._charatcerConfig.config.width,
+         'height': vm._charatcerConfig.config.height
      }">
     <div class="character-user"
          ng-style="
@@ -16,12 +16,36 @@
             'transform': 'translate3d('+vm.endPos+',0,0)',
             '-webkit-transform': 'translate3d('+vm.endPos+',0,0)'
         }">
-        <avatar
-                character-config="vm.characterListPath"
-                character-child="vm.characterChild"
-                character-pos="vm.currentEnd"
-                start-anim="vm.startAnimation"
-                stop-anim="vm.stopAnimation"
-        ></avatar>
+        <div class="character-avatar"
+
+             ng-style="
+                         {
+                            '-webkit-animation-duration':vm.durationAnim,
+                            'animation-duration': vm.durationAnim,
+                            'transform': 'translate3d(-50%, 0, 0) scaleX('+vm.characterScale+')',
+                            '-webkit-transform': 'translate3d(-50%, 0, 0) scaleX('+vm.characterScale+')'
+                         }">
+            <div class="character-status-contener"
+                 ng-style="
+                         {
+                            'transform': 'scaleX('+vm.scale+')',
+                            '-webkit-transform': 'scaleX('+vm.scale+')'
+                         }">
+                {{vm.pos}}
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+<!--
+<avatar
+        character-config="vm.characterListPath"
+        character-add-style="vm.characterAddStyle"
+        character-child="vm.characterChild"
+        character-pos="vm.currentEnd"
+        start-anim="vm.startAnimation"
+        stop-anim="vm.stopAnimation"
+></avatar>
+-->

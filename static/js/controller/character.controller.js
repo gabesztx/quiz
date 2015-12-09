@@ -1,17 +1,21 @@
 'use strict';
-class CharacterController {
+import AvatarController from './avatar.controller.js';
+class CharacterController extends AvatarController{
   /**
    * @param $scope
    * @param $window
    * @param $timeout
    * @param {SocketService} socketService
+   * @param charatcerConfig
    * @ngInject
    */
-  constructor($scope, $window, $timeout, socketService) {
+  constructor($scope, $window, $timeout, socketService, charatcerConfig) {
+    super($scope, charatcerConfig, $scope.vm.characterValue.characterId);
     this._$scope = $scope;
     this._$window = $window;
     this._$timeout = $timeout;
     this._socketService = socketService;
+    this._charatcerConfig = charatcerConfig[$scope.vm.characterValue.characterId];
     this._interactiveDom = angular.element(document.querySelector('.lobby-content'));
     this._duration = 0;
     this.anim = null;
@@ -32,14 +36,13 @@ class CharacterController {
    */
   initCharacter(element) {
     this.character = element;
+    this.character.append(this._charatcerConfig.style);
     this.characterChild = element.children().eq(0)[0];
+    this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
+    this.characterWidth = this._charatcerConfig.config.width;
     this.currentEnd = this._$scope.vm.characterValue.endPos;
-
-    this._$timeout(()=> {
-      this.refreshPositions();
-      this.character.append(this._$scope.vm.characterListPath.style);
-      this.addNewPosition(this._$scope.vm.characterValue.endPos)
-    },10)
+    this._initAvatar(element.children().children().eq(0), this.characterChild);
+    this.addNewPosition(this._$scope.vm.characterValue.endPos);
   }
 
   /**
@@ -75,7 +78,7 @@ class CharacterController {
     const currentScaleArrow = this.calculatePercent(this.getDomTransform());
     this._$scope.vm.characterValue.endPos = data;
     //TODO: firefox bug windows startAnimation is not a function
-    this.startAnimation(data, currentScaleArrow, this._duration);
+    this._startAnim(data, currentScaleArrow, this._duration);
     this._endPos = ((this.calculateTransformPercent(data))) + data;
     this._$scope.$applyAsync();
   }
@@ -83,17 +86,17 @@ class CharacterController {
   /**
    * window resizer interactive dom and refresh dimension params
    */
-  refreshPositions() {
-    this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
-    this.characterWidth = this.character[0].offsetWidth;
-  }
+/*  refreshPositions() {
+
+    console.log(this.character[0].offsetWidth);
+  }*/
 
   /**
    * window resizer interactive dom and refresh dimension params
    */
   refreshDimension() {
     this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
-    this.characterWidth = this.characterChild.offsetWidth;
+    this.characterWidth = this._charatcerConfig.config.width;
     if (this.resizeListener) {
       this._$scope.vm.characterValue.endPos = this.getResizeCalculatePositions();
       this.resizeListener = false;
@@ -106,7 +109,9 @@ class CharacterController {
         this.resizeListener = true;
         this.moveCharacter(this.currentEnd);
       }, 100);
+
     };
+
     getDelayResize();
     this.addNewPosition(this._$scope.vm.characterValue.endPos)
   }
@@ -150,7 +155,7 @@ class CharacterController {
    * get character duration from interactive dom dimension from click
    */
   getCharacterDuration(data) {
-    const duration = (data - this.calculatePercent(this.getDomTransform()))  / this._$scope.vm.characterListPath.config.durationGlobal;
+    const duration = (data - this.calculatePercent(this.getDomTransform()))  / this._charatcerConfig.config.durationGlobal;
     const durationDef = duration === 0 ? duration+0.1 : duration;
     return durationDef < 0 ? -durationDef : durationDef;
   }

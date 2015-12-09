@@ -4,7 +4,6 @@ class CharacterDirective {
     this.scope    = {};
     this.bindToController = {
       characterValue    : '=',
-      characterListPath : '=',
       itsMe             : '='
     };
     this.controller   = 'characterController';
