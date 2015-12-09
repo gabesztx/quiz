@@ -5,11 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "gulp"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gabesztx/quiz.git"
+    "postinstall": "gulp default"
   },
   "author": "",
   "license": "ISC",
