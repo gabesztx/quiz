@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "gulp"
+    "postinstall": "bower install && gulp"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-1": "^6.3.13",
+    "babel-preset-stage-2": "^6.3.13",
     "babel-preset-stage-3": "^6.3.13",
     "babel-runtime": "^6.3.13",
     "express": "^4.13.3",
