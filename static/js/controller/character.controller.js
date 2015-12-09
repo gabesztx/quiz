@@ -54,13 +54,15 @@ class CharacterController extends AvatarController {
    * add mouse event to interactive dom
    */
   addMouseEvent() {
-    this._interactiveDom.bind('mousedown', (e)=> {
+    const clickEvent = _.debounce((e)=> {
       if (this.prevValue && this.prevValue !== e.clientX) {
         this._socketService.send('addEndPos', this.calculatePercent(e.clientX));
       }
       this.prevValue = e.clientX;
-    })
+    }, 60);
+    this._interactiveDom.bind('mousedown', clickEvent);
   }
+
 
   getCalculatePositionsDif(pos) {
     const currentPos = pos - this.calculatePercent(this.getDomTransform());

@@ -43,16 +43,15 @@ class UserHandlerController {
       this._httpService.publishData(element + 'refresh')
     });
   }
-
-  /**
+/*  /!**
    * add mouse event to interactive dom
-   */
+   *!/
   addMouseEvent() {
     //TODO unbind
     this.interactiveDom.bind('mousedown', (e)=> {
       this._socketService.send('addEndPos', this._characterService.calculatePercent(e.clientX));
 
     })
-  }
+  }*/
 }
 export default UserHandlerController;
