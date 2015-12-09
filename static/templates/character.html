@@ -8,13 +8,16 @@
          ng-style="
          {
             'transition-property': vm.transProperty,
+            '-ms-transition-property': vm.transProperty,
             '-webkit-transition-property': vm.transProperty,
             'transition-duration': vm.duration,
             '-webkit-transition-duration': vm.duration,
+            '-ms-transition-duration': vm.duration,
             'transition-timing-function': 'linear',
             '-webkit-transition-timing-function': 'linear',
             'transform': 'translate3d('+vm.endPos+',0,0)',
-            '-webkit-transform': 'translate3d('+vm.endPos+',0,0)'
+            '-webkit-transform': 'translate3d('+vm.endPos+',0,0)',
+            '-ms-transform': 'translate3d('+vm.endPos+',0,0)'
         }">
         <div class="character-avatar"
 
@@ -22,7 +25,9 @@
                          {
                             '-webkit-animation-duration':vm.durationAnim,
                             'animation-duration': vm.durationAnim,
+                            'ms-duration': vm.durationAnim,
                             'transform': 'translate3d(-50%, 0, 0) scaleX('+vm.characterScale+')',
+                            '-ms-transform': 'translate3d(-50%, 0, 0) scaleX('+vm.characterScale+')',
                             '-webkit-transform': 'translate3d(-50%, 0, 0) scaleX('+vm.characterScale+')'
                          }">
             <div class="character-status-contener"

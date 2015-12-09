@@ -1,14 +1,13 @@
 class AvatarController {
   /**
    * @param $scope
-   * @param charatcerConfig
    * @ngInject
    */
   constructor($scope, charatcerConfig, characterId) {
     this._initAvatar = this.initAvatar;
     this._startAnim = this.startAnim;
     this._charatcerConfig = charatcerConfig[characterId];
-    this.oldPosiotion = null;
+    this.oldPosiotion = 0;
   }
 
   startAnim(newPos, oldPos, duration) {
@@ -29,6 +28,7 @@ class AvatarController {
     this.avatar.removeClass('stop');
     let durationStart = this._charatcerConfig.config.durationStart;
     let durationEnd = this._charatcerConfig.config.durationEnd - ((currentDuration / this.speed) * this._charatcerConfig.config.durationEnd);
+
     this._durationAnim = durationEnd < durationStart ? durationStart : durationEnd;
   };
 

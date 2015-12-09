@@ -9,7 +9,7 @@ class CharacterController extends AvatarController{
    * @param charatcerConfig
    * @ngInject
    */
-  constructor($scope, $window, $timeout, socketService, charatcerConfig) {
+  constructor($scope, $window, $timeout, socketService, charatcerConfig, isIE) {
     super($scope, charatcerConfig, $scope.vm.characterValue.characterId);
     this._$scope = $scope;
     this._$window = $window;
@@ -20,6 +20,7 @@ class CharacterController extends AvatarController{
     this._duration = 0;
     this.anim = null;
     this.resizeListener = true;
+    this.getMatrixNum = isIE ? 12 : 4;
 
     //TODO describe channel from Postal
     socketService
@@ -35,16 +36,17 @@ class CharacterController extends AvatarController{
    * init own character
    */
   initCharacter(element) {
-    this.character = element;
-    this.character.append(this._charatcerConfig.style);
-    this.characterChild = element.children().eq(0)[0];
-    this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
-    this.characterWidth = this._charatcerConfig.config.width;
-    this.currentEnd = this._$scope.vm.characterValue.endPos;
-    this._initAvatar(element.children().children().eq(0), this.characterChild);
-    this.addNewPosition(this._$scope.vm.characterValue.endPos);
+    this._$timeout(()=> {
+      this.character = element;
+      this.character.append(this._charatcerConfig.style);
+      this.characterChild = element.children().eq(0)[0];
+      this.interactiveDomWidth = this._interactiveDom[0].offsetWidth;
+      this.characterWidth = this._charatcerConfig.config.width;
+      this.currentEnd = this._$scope.vm.characterValue.endPos;
+      this._initAvatar(element.children().children  ().eq(0), this.characterChild);
+      this.addNewPosition(this._$scope.vm.characterValue.endPos);
+    });
   }
-
   /**
    * add mouse event to interactive dom
    */
@@ -69,18 +71,20 @@ class CharacterController extends AvatarController{
     this.currentEnd = data;
     this._duration = this.getCharacterDuration(data);
     this.addNewPosition(this.currentEnd);
+
   }
 
   /**
    * add positions to character
    */
   addNewPosition(data) {
+    //TODO: IE bug (currentScaleArrow)
     const currentScaleArrow = this.calculatePercent(this.getDomTransform());
     this._$scope.vm.characterValue.endPos = data;
-    //TODO: firefox bug windows startAnimation is not a function
     this._startAnim(data, currentScaleArrow, this._duration);
     this._endPos = ((this.calculateTransformPercent(data))) + data;
     this._$scope.$applyAsync();
+
   }
 
   /**
@@ -171,7 +175,7 @@ class CharacterController extends AvatarController{
    * get character transform position
    */
   getDomTransform() {
-    return Math.ceil(getComputedStyle(this.characterChild).transform.split(',')[4]) + this.calculateWithDif();
+      return Math.ceil(getComputedStyle(this.characterChild).transform.split(',')[this.getMatrixNum]) + this.calculateWithDif();
   }
 }
 

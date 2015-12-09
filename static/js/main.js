@@ -9,11 +9,12 @@ import CharacterService from './service/character.service.js';
 import HallController from './controller/hall.controller.js';
 import UserHandlerController from './controller/userhandler.controller.js';
 import CharacterController from './controller/character.controller.js';
-import {CharacterConfig} from './storage/config.js';
+import {CharacterConfig,isIE} from './storage/config.js';
 
 
 angular.module('socketApp', ['ngAnimate'])
   .value('charatcerConfig', CharacterConfig)
+  .value('isIE', isIE)
   .service('postalService', PostalService)
   .service('httpService', HttpService)
   .service('socketService', SocketService)

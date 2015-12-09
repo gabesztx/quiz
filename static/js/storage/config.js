@@ -30,4 +30,5 @@ const CharacterConfig = {
     '</style>'
   }
 };
-export {CharacterConfig};
+const isIE = /(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+export {CharacterConfig, isIE};
