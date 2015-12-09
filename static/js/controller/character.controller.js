@@ -20,8 +20,7 @@ class CharacterController extends AvatarController{
     this._duration = 0;
     this.anim = null;
     this.resizeListener = true;
-    this.getMatrixNum = isIE ? 12 : 4;
-
+    this.splitNum = isIE ? 12 : 4;
     //TODO describe channel from Postal
     socketService
       .watchServerData((data)=> {
@@ -175,7 +174,7 @@ class CharacterController extends AvatarController{
    * get character transform position
    */
   getDomTransform() {
-      return Math.ceil(getComputedStyle(this.characterChild).transform.split(',')[this.getMatrixNum]) + this.calculateWithDif();
+      return Math.ceil(getComputedStyle(this.characterChild).transform.split(',')[this.splitNum]) + this.calculateWithDif();
   }
 }
 

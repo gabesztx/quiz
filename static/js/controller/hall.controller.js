@@ -12,10 +12,13 @@ class HallController {
     this._$timeout = $timeout;
     this.userListData = {};
     this._socketService = socketService;
+    const ids = ['a1','a2','a1','a2','a1','a2','a1','a2','a1','a2'];
+    const random = parseInt(Math.random()*10);
     this.userChooseData = {
       userName: 'anonymous ' + parseInt(Math.random() * 100, 10),
-      characterId: 'a1'
+      characterId: ids[random]
     };
+
 
     this.registerServerChannel();
     socketService.socketInit(this.userChooseData);

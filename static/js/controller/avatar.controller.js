@@ -6,6 +6,7 @@ class AvatarController {
   constructor($scope, charatcerConfig, characterId) {
     this._initAvatar = this.initAvatar;
     this._startAnim = this.startAnim;
+    this._characterId = characterId;
     this._charatcerConfig = charatcerConfig[characterId];
     this.oldPosiotion = 0;
   }
@@ -22,13 +23,13 @@ class AvatarController {
   }
 
   stopAnimation = ()=> {
-    this.avatar.addClass('stop');
+    this.avatar.addClass('stop'+this._characterId);
   };
   startAnimation = (currentDuration)=> {
-    this.avatar.removeClass('stop');
+
+    this.avatar.removeClass('stop'+this._characterId);
     let durationStart = this._charatcerConfig.config.durationStart;
     let durationEnd = this._charatcerConfig.config.durationEnd - ((currentDuration / this.speed) * this._charatcerConfig.config.durationEnd);
-
     this._durationAnim = durationEnd < durationStart ? durationStart : durationEnd;
   };
 

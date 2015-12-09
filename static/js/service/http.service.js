@@ -12,6 +12,7 @@ class HttpService {
    *  subscribe channel to postal
    */
   watchData(callback, channelName) {
+
     this._postalService.channelSubscribe(channelName, callback);
   }
   /**

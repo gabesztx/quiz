@@ -66,6 +66,7 @@ class SocketService {
         this._httpService.publishData('whoAmI', myId);
       })
       .on('addEndPos', (id, userPos)=> {
+        console.log('GET ENDPOS', userPos);
         this._httpService.publishData(id + 'move', userPos);
       })
       .on('disconnect', (userId)=> {
