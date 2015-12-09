@@ -9,9 +9,6 @@
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gabesztx/quiz/issues"
-  },
   "homepage": "https://github.com/gabesztx/quiz#readme",
   "dependencies": {
     "angular": "^1.4.8",
