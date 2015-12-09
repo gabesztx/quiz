@@ -1,6 +1,6 @@
 'use strict';
 import AvatarController from './avatar.controller.js';
-class CharacterController extends AvatarController{
+class CharacterController extends AvatarController {
   /**
    * @param $scope
    * @param $window
@@ -21,6 +21,9 @@ class CharacterController extends AvatarController{
     this.anim = null;
     this.resizeListener = true;
     this.splitNum = isIE ? 12 : 4;
+    this.prevValue = 1;
+
+
     //TODO describe channel from Postal
     socketService
       .watchServerData((data)=> {
@@ -46,12 +49,16 @@ class CharacterController extends AvatarController{
       this.addNewPosition(this._$scope.vm.characterValue.endPos);
     });
   }
+
   /**
    * add mouse event to interactive dom
    */
   addMouseEvent() {
     this._interactiveDom.bind('mousedown', (e)=> {
-      this._socketService.send('addEndPos', this.calculatePercent(e.clientX));
+      if (this.prevValue && this.prevValue !== e.clientX) {
+        this._socketService.send('addEndPos', this.calculatePercent(e.clientX));
+      }
+      this.prevValue = e.clientX;
     })
   }
 
@@ -89,10 +96,10 @@ class CharacterController extends AvatarController{
   /**
    * window resizer interactive dom and refresh dimension params
    */
-/*  refreshPositions() {
+  /*  refreshPositions() {
 
-    console.log(this.character[0].offsetWidth);
-  }*/
+   console.log(this.character[0].offsetWidth);
+   }*/
 
   /**
    * window resizer interactive dom and refresh dimension params
@@ -158,8 +165,8 @@ class CharacterController extends AvatarController{
    * get character duration from interactive dom dimension from click
    */
   getCharacterDuration(data) {
-    const duration = (data - this.calculatePercent(this.getDomTransform()))  / this._charatcerConfig.config.durationGlobal;
-    const durationDef = duration === 0 ? duration+0.1 : duration;
+    const duration = (data - this.calculatePercent(this.getDomTransform())) / this._charatcerConfig.config.durationGlobal;
+    const durationDef = duration === 0 ? duration + 0.1 : duration;
     return durationDef < 0 ? -durationDef : durationDef;
   }
 
@@ -174,7 +181,7 @@ class CharacterController extends AvatarController{
    * get character transform position
    */
   getDomTransform() {
-      return Math.ceil(getComputedStyle(this.characterChild).transform.split(',')[this.splitNum]) + this.calculateWithDif();
+    return Math.ceil(getComputedStyle(this.characterChild).transform.split(',')[this.splitNum]) + this.calculateWithDif();
   }
 }
 

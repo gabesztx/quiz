@@ -20,6 +20,7 @@ class UserHandlerController {
    */
   initStage(elem) {
     this.interactiveDom = elem;
+    this.prevValue = null;
     this.stageResizer();
     this.addResize();
   }
@@ -50,6 +51,7 @@ class UserHandlerController {
     //TODO unbind
     this.interactiveDom.bind('mousedown', (e)=> {
       this._socketService.send('addEndPos', this._characterService.calculatePercent(e.clientX));
+
     })
   }
 }
