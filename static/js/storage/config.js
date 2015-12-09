@@ -59,6 +59,37 @@ const CharacterConfig = {
     'to { background-position: -6370px 0; }' +
 
     '</style>'
+  },
+  a3: {
+    className: 'a3',
+    config: {
+      'width': 120,
+      'height': 90,
+      'durationGlobal': 10,
+      'durationEnd': 0.7,
+      'durationStart': 0.4
+    },
+    style:
+    '<style>' +
+    '.a3{' +
+    'width: 100%;' +
+    'height: 100%; ' +
+    'animation: playa3Anim steps(12);' +
+    'animation-iteration-count: infinite !important;' +
+    'background-image: url("./static/asset/a3.png");' +
+    'background-position: 0 0'+
+    '}' +
+
+    '.stopa3{' +
+    'animation: none; ' +
+    'background-position: 0 0' +
+    '}' +
+
+    '@keyframes playa3Anim { ' +
+    'from { background-position:0 0; } ' +
+    'to { background-position: -1440px 0; }' +
+
+    '</style>'
   }
 };
 const isIE = /(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);

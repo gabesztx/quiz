@@ -23,11 +23,11 @@ class AvatarController {
   }
 
   stopAnimation = ()=> {
-    this.avatar.addClass('stop'+this._characterId);
+    this.avatar.addClass('stop' + this._characterId);
   };
   startAnimation = (currentDuration)=> {
 
-    this.avatar.removeClass('stop'+this._characterId);
+    this.avatar.removeClass('stop' + this._characterId);
     let durationStart = this._charatcerConfig.config.durationStart;
     let durationEnd = this._charatcerConfig.config.durationEnd - ((currentDuration / this.speed) * this._charatcerConfig.config.durationEnd);
     this._durationAnim = durationEnd < durationStart ? durationStart : durationEnd;

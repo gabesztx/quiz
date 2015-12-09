@@ -12,8 +12,8 @@ class HallController {
     this._$timeout = $timeout;
     this.userListData = {};
     this._socketService = socketService;
-    const ids = ['a1','a2','a1','a2','a1','a2','a1','a2','a1','a2'];
-    const random = parseInt(Math.random()*10);
+    const ids = ['a1','a2','a3','a1','a2','a3','a1','a2','a3','a1','a2','a3','a1','a2','a3'];
+    const random = parseInt(Math.random()*15);
     this.userChooseData = {
       userName: 'anonymous ' + parseInt(Math.random() * 100, 10),
       characterId: ids[random]
