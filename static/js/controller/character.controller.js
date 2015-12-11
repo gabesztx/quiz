@@ -129,7 +129,7 @@ class CharacterController extends AvatarController {
   }
 
   /**
-   * view get character diration
+   * view get character dur0ation
    */
   get duration() {
     return this._duration + 's';
