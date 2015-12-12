@@ -10,7 +10,27 @@
     <link rel="stylesheet" href="dist/css/style.css">
 </head>
 <body>
-<div class="content">
+
+<div class="wrapper">
+    <div class="hallroom" ng-controller="hallController as vm">
+        <user-handler
+                user-list="vm.userListData"
+                its-me="vm.myId">
+            <div class="lobby-content" ng-click="">
+                <user-character
+                        ng-repeat="(key,value) in vm.userListData"
+                        character-value="value"
+                        interactive-dom="vm.interactiveDom"
+                        its-me="vm.myId"
+                >
+                </user-character>
+            </div>
+        </user-handler>
+    </div>
+</div>
+
+
+<!--<div class="content">
     <div class="header-page">
         <p>Scrabble quiz game</p>
     </div>
@@ -33,7 +53,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
