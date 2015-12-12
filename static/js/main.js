@@ -31,7 +31,7 @@ angular.module('socketApp', ['ngAnimate'])
 
 $(function () {
   $.material.init();
-  $.material.ripples();
-  $.material.input();
-  $.material.radio();
+  //$.material.ripples();
+/*  $.material.input();
+  $.material.radio();*/
 });
