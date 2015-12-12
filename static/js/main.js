@@ -28,3 +28,10 @@ angular.module('socketApp', ['ngAnimate'])
   .controller('characterController', CharacterController)
   .controller('userHandlerController', UserHandlerController)
   .controller('hallController', HallController);
+
+$(function () {
+  $.material.init();
+  $.material.ripples();
+  $.material.input();
+  $.material.radio();
+});
