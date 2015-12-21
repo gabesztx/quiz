@@ -1,4 +1,3 @@
-
 import PostalService from './service/postal.service.js';
 import HttpService from './service/http.service.js';
 import SocketService from './service/socket.service.js';
@@ -10,9 +9,17 @@ import HallController from './controller/hall.controller.js';
 import UserHandlerController from './controller/userhandler.controller.js';
 import CharacterController from './controller/character.controller.js';
 import {CharacterConfig,isIE} from './storage/config.js';
+import {ROUTES} from './storage/routeUrl.js';
+import {ROUTEURL} from './storage/routeUrl.js';
 
 
-angular.module('socketApp', ['ngAnimate'])
+const getConfigRouting = (templateUrl, controller, resolve)=> {
+  return {
+    templateUrl: templateUrl
+  }
+};
+
+angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .value('charatcerConfig', CharacterConfig)
   .value('isIE', isIE)
   .service('postalService', PostalService)
@@ -27,11 +34,13 @@ angular.module('socketApp', ['ngAnimate'])
   })
   .controller('characterController', CharacterController)
   .controller('userHandlerController', UserHandlerController)
-  .controller('hallController', HallController);
+  .controller('hallController', HallController)
+  .config(/* @ngInject */ ($routeProvider) => {
+    $routeProvider
+      .when(ROUTES.index, getConfigRouting(ROUTEURL.index))
+      .when(ROUTES.setting, getConfigRouting(ROUTEURL.setting))
+      .otherwise({
+        redirectTo: ROUTES.index
+      })
 
-$(function () {
-  $.material.init();
-  //$.material.ripples();
-/*  $.material.input();
-  $.material.radio();*/
-});
+  });

@@ -7,6 +7,7 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css" rel="stylesheet">
     <link href="bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/less/animate.css">
     <link rel="stylesheet" href="dist/css/style.css">
 </head>
 <body>
@@ -33,36 +34,7 @@
         <p>Scrabble quiz game</p>
     </div>
     <div class="wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-<!--                    <div class="panel panel-default welcome-page">
-                        <div class="panel-body">
-                            <h1>Welcome</h1>
-                            <p>Lorem ipsum dolor sit amet, molestiae rhoncus pellentesque, id est, metus eu maecenas
-                                hendrerit, mauris in. Amet mollis iaculis suspendisse ligula lectus, mauris integer eget
-                                luctus pulvinar sit.<br> <br>
-                                Lorem ipsum dolor sit amet, massa ut nam pellentesque turpis, praesent nunc. Feugiat
-                                placerat mi eu dis risus, cursus vel, mi in et et. Ultricies lectus dui, eu id, quam est
-                                vivamus ante, erat etiam integer.
-                            </p>
-                            <a class="btn btn-raised btn-sm">Next step</a>
-                        </div>
-                    </div>-->
-                    <div class="well welcome-page shadow">
-                        <h1>Welcome</h1>
-                        <p>Lorem ipsum dolor sit amet, molestiae rhoncus pellentesque, id est, metus eu maecenas
-                            hendrerit, mauris in. Amet mollis iaculis suspendisse ligula lectus, mauris integer eget
-                            luctus pulvinar sit.<br> <br>
-                            Lorem ipsum dolor sit amet, massa ut nam pellentesque turpis, praesent nunc. Feugiat
-                            placerat mi eu dis risus, cursus vel, mi in et et. Ultricies lectus dui, eu id, quam est
-                            vivamus ante, erat etiam integer.
-                        </p>
-                        <a class="btn btn-raised btn-sm">Next step</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="page-about" ng-view></div>
     </div>
 </div>
 
@@ -72,6 +44,7 @@
 <script type="text/javascript" src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
 <script type="text/javascript" src="node_modules/socket.io-client/socket.io.js"></script>
 <script type="text/javascript" src="node_modules/angular/angular.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="node_modules/angular-route/angular-route.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="node_modules/angular-animate/angular-animate.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
 <script type="text/javascript" src="node_modules/postal/lib/postal.min.js"></script>

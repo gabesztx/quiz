@@ -8,7 +8,7 @@ class CharacterDirective {
     };
     this.controller   = 'characterController';
     this.controllerAs = 'vm';
-    this.templateUrl  = 'static/templates/character.html';
+    this.templateUrl  = 'static/template/character.html';
   }
   link($scope, elem) {
     $scope.vm.initCharacter(elem.children().eq(0));
