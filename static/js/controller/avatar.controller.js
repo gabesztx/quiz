@@ -14,6 +14,7 @@ class AvatarController {
   startAnim(newPos, oldPos, duration) {
     this.getPos = newPos;
     if (newPos !== this.oldPosiotion && this.oldPosiotion) {
+      console.log(this.characterChild);
       this.characterChild.removeEventListener("transitionend", this.stopAnimation);
       this.characterChild.addEventListener("transitionend", this.stopAnimation);
       this.startAnimation(duration);

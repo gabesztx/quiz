@@ -15,7 +15,24 @@ import {ROUTEURL} from './storage/routeUrl.js';
 
 const getConfigRouting = (templateUrl, controller, resolve)=> {
   return {
-    templateUrl: templateUrl
+    templateUrl: templateUrl,
+    resolve: {
+      changeSlide: ()=> {
+        const a = 'valami';
+        const slideDom = document.querySelector('.slide-anim');
+
+        /*slideDom.removeEventListener("transitionend", ()=>{
+         });*/
+
+        if(!slideDom) { return false; }
+        slideDom.addEventListener("transitionend", ()=> {
+          console.log('End');
+        });
+
+
+        return a;
+      }
+    }
   }
 };
 
