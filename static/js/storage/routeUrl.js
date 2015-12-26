@@ -1,12 +1,12 @@
 const baseURL = './static/template';
 const routes = {
-  index: '/welcome',
-  setting: '/profilesetting'
+  home: '/',
+  profilesetting: '/profilesetting'
 };
 
 const routesURL = {
-  index: baseURL + '/welcome.html',
-  setting: baseURL + '/profilesetting.html'
+  home: baseURL + '/welcome.html',
+  profilesetting: baseURL + '/profilesetting.html'
 };
 
 

@@ -6,28 +6,50 @@ body {
   margin: 0;
 }
 
+@headerHeight: 50px;
 .content {
   position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
+
   .header-page {
     position: fixed;
+    display: table;
     width: 100%;
-    height: 70px;
+    height: @headerHeight;
     z-index: 5;
     -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
     box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
-    //background-color: #373737;
-    background-color: @brown-700;
-    p {
-      line-height: 70px;
-      text-align: center;
-      color: white;
-      font-size: 24px;
-      text-transform: uppercase;
+    background-color: @grey-800;
+    transition: all 0.7s ease-out;
+    transform: translate3d(0,-(@headerHeight)-5, 0);
+    .header-page-cell {
+      display: table-cell;
+      vertical-align: middle;
+      div {
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        text-transform: uppercase;
+      }
     }
+  }
+  .down-header {
+    transform: translate3d(0, 0, 0);
+  }
+  .slide-anim {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: @headerHeight+10;
+    /*transform: translateZ(0);*/
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    overflow: auto;
   }
 }
 

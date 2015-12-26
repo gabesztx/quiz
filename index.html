@@ -29,15 +29,15 @@
         </user-handler>
     </div>
 </div>-->
-<div class="content">
-    <div class="header-page">
-        <p>Scrabble quiz game</p>
-    </div>
-    <div class="wrapper">
-        <div class="slide-anim" ng-view></div>
-    </div>
-</div>
 
+<div class="content">
+    <div class="header-page" ng-class="{'down-header':false}">
+        <div class="header-page-cell">
+            <div>Scrabble quiz game</div>
+        </div>
+    </div>
+    <div class="slide-anim" ng-view></div>
+</div>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
@@ -48,6 +48,7 @@
 <script type="text/javascript" src="node_modules/angular-animate/angular-animate.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
 <script type="text/javascript" src="node_modules/postal/lib/postal.min.js"></script>
+<script type="text/javascript" src="node_modules/fastclick/lib/fastclick.js"></script>
 <script type="text/javascript" src="dist/js/main.js" charset="utf-8"></script>
 </body>
 </html>

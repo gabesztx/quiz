@@ -8,29 +8,31 @@ import CharacterService from './service/character.service.js';
 import HallController from './controller/hall.controller.js';
 import UserHandlerController from './controller/userhandler.controller.js';
 import CharacterController from './controller/character.controller.js';
+import WelcomeController from './controller/welcomeController.js';
 import {CharacterConfig,isIE} from './storage/config.js';
 import {ROUTES} from './storage/routeUrl.js';
 import {ROUTEURL} from './storage/routeUrl.js';
 
-
-const getConfigRouting = (templateUrl, controller, resolve)=> {
+const getConfigRouting = (templateUrl)=> {
   return {
     templateUrl: templateUrl,
     resolve: {
-      changeSlide: ()=> {
-        const a = 'valami';
-        const slideDom = document.querySelector('.slide-anim');
-
-        /*slideDom.removeEventListener("transitionend", ()=>{
-         });*/
-
-        if(!slideDom) { return false; }
-        slideDom.addEventListener("transitionend", ()=> {
-          console.log('End');
-        });
-
-
-        return a;
+      changeSlide: ($q)=> {
+        const defer = $q.defer();
+        return defer.promise;
+        /*        const defer = $q.defer();
+         const slideDom = document.querySelector('.slide-anim');
+         const slideAnimEvent = ()=> {
+         slideDom.removeEventListener("transitionend", slideAnimEvent);
+         console.log('End');
+         //defer.resolve();
+         };
+         if (!slideDom) {
+         return false;
+         }
+         console.log('go');
+         slideDom.addEventListener("transitionend", slideAnimEvent);
+         return defer.promise;*/
       }
     }
   }
@@ -39,6 +41,7 @@ const getConfigRouting = (templateUrl, controller, resolve)=> {
 angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .value('charatcerConfig', CharacterConfig)
   .value('isIE', isIE)
+  .value('ROUTES', ROUTES)
   .service('postalService', PostalService)
   .service('httpService', HttpService)
   .service('socketService', SocketService)
@@ -52,12 +55,19 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .controller('characterController', CharacterController)
   .controller('userHandlerController', UserHandlerController)
   .controller('hallController', HallController)
+  .controller('welcomeController', WelcomeController)
   .config(/* @ngInject */ ($routeProvider) => {
     $routeProvider
-      .when(ROUTES.index, getConfigRouting(ROUTEURL.index))
-      .when(ROUTES.setting, getConfigRouting(ROUTEURL.setting))
+      .when(ROUTES.home, getConfigRouting(ROUTEURL.home))
+      .when(ROUTES.profilesetting, getConfigRouting(ROUTEURL.profilesetting))
       .otherwise({
-        redirectTo: ROUTES.index
+        redirectTo: ROUTES.home
       })
 
+  })
+  .run(/* @ngInject */ ($rootScope, $window) => {
   });
+
+/*$(function () {
+ FastClick.attach(document.body);
+ });*/
