@@ -1,3 +1,4 @@
+'use strict';
 const userhandler = require('./userhandler.server.js');
 const connectSocket = (io)=> {
   io.on('connection', (socket) => {

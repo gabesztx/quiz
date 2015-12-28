@@ -1,5 +1,13 @@
 @slideDuration: 0.7s;
-.slide-anim.ng-enter, .slide-anim.ng-leave {
+@import 'variables.less';
+@import 'colors.less';
+
+@headerHeight: 50px;
+
+.slide-anim-left {
+  margin-top: @headerHeight+5;
+}
+.slide-anim-left.ng-enter, .slide-anim-left.ng-leave {
   display: block;
   top: 0;
   left: 0;
@@ -9,17 +17,45 @@
   -webkit-transition: all @slideDuration ease-in-out;
 }
 
-.slide-anim.ng-enter {
+.slide-anim-left.ng-enter {
   -webkit-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
 }
 
-.slide-anim.ng-enter.ng-enter-active {
+.slide-anim-left.ng-enter.ng-enter-active {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 
-.slide-anim.ng-leave.ng-leave-active {
+.slide-anim-left.ng-leave.ng-leave-active {
   -webkit-transform: translate3d(-100%, 0, 0);
   transform: translate3d(-100%, 0, 0);
+}
+
+.slide-anim-down {
+  margin-top: 0;
+}
+.slide-anim-down.ng-enter, .slide-anim-down.ng-leave {
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: all @slideDuration ease-in-out;
+  -webkit-transition: all @slideDuration ease-in-out;
+}
+
+.slide-anim-down.ng-enter {
+  -webkit-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+
+.slide-anim-down.ng-enter.ng-enter-active {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.slide-anim-down.ng-leave.ng-leave-active {
+  -webkit-transform: translate3d(-0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
 }

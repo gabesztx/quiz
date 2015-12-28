@@ -6,12 +6,12 @@ import CharacterDirective from './directive/character.directive.js';
 import UserHandlerDirective from './directive/userhandler.directive.js';
 import CharacterService from './service/character.service.js';
 import HallController from './controller/hall.controller.js';
+import AuthenticationController from './controller/authentication.controller.js';
 import UserHandlerController from './controller/userhandler.controller.js';
 import CharacterController from './controller/character.controller.js';
 import WelcomeController from './controller/welcomeController.js';
 import {CharacterConfig,isIE} from './storage/config.js';
 import {ROUTES} from './storage/routeUrl.js';
-import {ROUTEURL} from './storage/routeUrl.js';
 
 const getConfigRouting = (templateUrl)=> {
   return {
@@ -19,9 +19,9 @@ const getConfigRouting = (templateUrl)=> {
     resolve: {
       changeSlide: ($q)=> {
         const defer = $q.defer();
-        return defer.promise;
-        /*        const defer = $q.defer();
-         const slideDom = document.querySelector('.slide-anim');
+        //console.log('config');
+        //return defer.promise;
+        /*const slideDom = document.querySelector('.slide-anim');
          const slideAnimEvent = ()=> {
          slideDom.removeEventListener("transitionend", slideAnimEvent);
          console.log('End');
@@ -31,8 +31,7 @@ const getConfigRouting = (templateUrl)=> {
          return false;
          }
          console.log('go');
-         slideDom.addEventListener("transitionend", slideAnimEvent);
-         return defer.promise;*/
+         slideDom.addEventListener("transitionend", slideAnimEvent);*/
       }
     }
   }
@@ -52,22 +51,20 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .directive('userCharacter', () => {
     return new CharacterDirective()
   })
+  .controller('authenticationController', AuthenticationController)
   .controller('characterController', CharacterController)
   .controller('userHandlerController', UserHandlerController)
   .controller('hallController', HallController)
   .controller('welcomeController', WelcomeController)
   .config(/* @ngInject */ ($routeProvider) => {
     $routeProvider
-      .when(ROUTES.home, getConfigRouting(ROUTEURL.home))
-      .when(ROUTES.profilesetting, getConfigRouting(ROUTEURL.profilesetting))
-      .otherwise({
-        redirectTo: ROUTES.home
-      })
-
+      .when(ROUTES.urlPath.authentication, getConfigRouting(ROUTES.urlTemplate.authentication))
+      .when(ROUTES.urlPath.home, getConfigRouting(ROUTES.urlTemplate.home))
+      .when(ROUTES.urlPath.profilesetting, getConfigRouting(ROUTES.urlTemplate.profilesetting))
+      .otherwise({redirectTo: ROUTES.urlPath.authentication})
   })
-  .run(/* @ngInject */ ($rootScope, $window) => {
+  .run(/* @ngInject */ () => {
   });
-
 /*$(function () {
  FastClick.attach(document.body);
  });*/

@@ -1,8 +1,9 @@
 var sourceLess = './static/less/';
 var less = [
   sourceLess + 'animation.less',
+  sourceLess + 'authentication.less',
   sourceLess + 'main.less',
-  sourceLess + 'welcome.less',
+  sourceLess + 'header.less',
   sourceLess + 'hallroom.less',
   sourceLess + 'character.less'
 ];

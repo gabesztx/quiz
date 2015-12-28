@@ -1,13 +1,17 @@
 const baseURL = './static/template';
 const routes = {
-  home: '/',
-  profilesetting: '/profilesetting'
+  urlPath:{
+    authentication: '/',
+    home: '/home',
+    profilesetting: '/profilesetting'
+  },
+  urlTemplate:{
+    authentication: baseURL + '/authentication.html',
+    home: baseURL + '/welcome.html',
+    profilesetting: baseURL + '/profilesetting.html'
+  }
+
+
 };
 
-const routesURL = {
-  home: baseURL + '/welcome.html',
-  profilesetting: baseURL + '/profilesetting.html'
-};
-
-
-export {routes as ROUTES, routesURL as ROUTEURL};
+export {routes as ROUTES};

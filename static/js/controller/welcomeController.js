@@ -9,7 +9,6 @@ class WelcomeController {
     this._$scope = $scope;
     this._$location = $location;
     this._routes = ROUTES;
-    //console.log('WelcomeController', ROUTES);
   }
 
   pathLink() {

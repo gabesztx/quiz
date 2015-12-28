@@ -19,8 +19,8 @@ class HallController {
       characterId: ids[random]
     };
 
-
     this.registerServerChannel();
+    //TODO: userChooseData az object amit leküldök a servernek de ez már meglesz nekem előre
     socketService.socketInit(this.userChooseData);
   }
 

@@ -1,43 +1,38 @@
-const jsonfile = require('jsonfile');
-const file = 'data.json';
+//const jsonfile = require('jsonfile');
+//const file = 'data.json';
 //jsonfile.readFile(file, function(err, obj) {});
-
+'use strict';
 const users = {};
-
-const addUser = (data, userId)=> {
-  const randomPos = parseInt(Math.random() * 100);
-  const user = {
-    'name': data.userName,
-    'id': userId,
-    'characterId': data.characterId,
-    'me': false,
-    'endPos': randomPos
-  };
-  users[userId] = user;
-  return user;
+const userHandler = {
+  addUser: (data, socketID)=> {
+    const user = {
+      'name'        : data.userName,
+      'id'          : socketID,
+      'characterId' : data.characterId,
+      'endPos'      : parseInt(Math.random() * 100)
+    };
+    users[socketID] = user;
+    return user;
+  },
+  removeUser: (userId)=> {
+    delete users[userId];
+    return users;
+  },
+  getUserList: ()=> {
+    return users;
+  },
+  addUserPosition: (userId, pos)=> {
+    users[userId].endPos = pos;
+    return users;
+  }
 };
-
-const addEndPos = (userId, pos)=> {
-  users[userId].endPos = pos;
-  return users;
-};
-
-const removeUser = (userId)=> {
-  delete users[userId];
-  return users;
-};
-
-const getUserList = ()=> {
-  return users;
-};
-
-const setUserdataToJson = (userData)=> {
-  jsonfile.writeFileSync(file, userData, {spaces: 2});
-};
+/*const setUserdataToJson = (userData)=> {
+ jsonfile.writeFileSync(file, userData, {spaces: 2});
+ };*/
 
 module.exports = {
-  'addUser': addUser,
-  'addEndPos': addEndPos,
-  'removeUser': removeUser,
-  'getUserList': getUserList
+  'addUser'     : userHandler.addUser,
+  'addEndPos'   : userHandler.addUserPosition,
+  'removeUser'  : userHandler.removeUser,
+  'getUserList' : userHandler.getUserList
 };
