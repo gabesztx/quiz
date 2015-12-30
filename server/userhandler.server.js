@@ -12,9 +12,6 @@ const userHandler = {
   setUser:(userdata, callback)=>{
 
     const key = userdata.name;
-
-
-
     users.userServer[key] = userdata;
     users.whoamI[key] = {
       'name'        : key,
