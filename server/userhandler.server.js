@@ -2,8 +2,33 @@
 //const file = 'data.json';
 //jsonfile.readFile(file, function(err, obj) {});
 'use strict';
-const users = {};
+const users = {
+  'userServer':{},
+  'whoamI':{}
+};
+//const users = {};
+
 const userHandler = {
+  setUser:(userdata, callback)=>{
+
+    const key = userdata.name;
+
+
+
+    users.userServer[key] = userdata;
+    users.whoamI[key] = {
+      'name'        : key,
+      'id'          : 'socketId',
+      'characterId' : 'a1',
+      'endPos'      : 'end'
+    };
+
+    callback(users.whoamI[key]);
+  },
+  getUser:()=>{
+
+  },
+
   addUser: (data, socketID)=> {
     const user = {
       'name'        : data.userName,
@@ -31,6 +56,8 @@ const userHandler = {
  };*/
 
 module.exports = {
+  'getUser'     : userHandler.getUser,
+  'setUser'     : userHandler.setUser,
   'addUser'     : userHandler.addUser,
   'addEndPos'   : userHandler.addUserPosition,
   'removeUser'  : userHandler.removeUser,

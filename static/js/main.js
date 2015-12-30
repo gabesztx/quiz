@@ -1,3 +1,5 @@
+import RoutingService from './service/routing.service.js';
+import UserService from './service/user.service.js';
 import PostalService from './service/postal.service.js';
 import HttpService from './service/http.service.js';
 import SocketService from './service/socket.service.js';
@@ -17,10 +19,11 @@ const getConfigRouting = (templateUrl)=> {
   return {
     templateUrl: templateUrl,
     resolve: {
-      changeSlide: ($q)=> {
+      getUserData: ($q, $location, routingService)=> {
         const defer = $q.defer();
-        //console.log('config');
-        //return defer.promise;
+        routingService.getValidationChange(defer);
+        return defer.promise;
+
         /*const slideDom = document.querySelector('.slide-anim');
          const slideAnimEvent = ()=> {
          slideDom.removeEventListener("transitionend", slideAnimEvent);
@@ -41,6 +44,8 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .value('charatcerConfig', CharacterConfig)
   .value('isIE', isIE)
   .value('ROUTES', ROUTES)
+  .service('routingService', RoutingService)
+  .service('userService', UserService)
   .service('postalService', PostalService)
   .service('httpService', HttpService)
   .service('socketService', SocketService)
@@ -57,13 +62,15 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .controller('hallController', HallController)
   .controller('welcomeController', WelcomeController)
   .config(/* @ngInject */ ($routeProvider) => {
+
     $routeProvider
       .when(ROUTES.urlPath.authentication, getConfigRouting(ROUTES.urlTemplate.authentication))
       .when(ROUTES.urlPath.home, getConfigRouting(ROUTES.urlTemplate.home))
       .when(ROUTES.urlPath.profilesetting, getConfigRouting(ROUTES.urlTemplate.profilesetting))
+      .when(ROUTES.urlPath.login, getConfigRouting(ROUTES.urlTemplate.login))
       .otherwise({redirectTo: ROUTES.urlPath.authentication})
   })
-  .run(/* @ngInject */ () => {
+  .run(/* @ngInject */ ($rootScope) => {
   });
 /*$(function () {
  FastClick.attach(document.body);

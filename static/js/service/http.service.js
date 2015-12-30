@@ -1,13 +1,29 @@
 'use strict';
 class HttpService {
   /**
+   * @param $http
    * @param {PostalService} postalService
    * @ngInject
    */
-  constructor(postalService) {
+  constructor($http, postalService) {
+    this._$http = $http;
     this._postalService = postalService;
     this._postalService.setChannel('socketServerCahnnel');
   }
+
+  /**
+   * @param return userData
+   */
+  register(regData) {
+      this._$http
+        .post('/register', regData)
+        .then(
+          (res)=> {
+            console.log(res.data);
+          }
+        )
+  }
+
   /**
    *  subscribe channel to postal
    */
@@ -15,6 +31,7 @@ class HttpService {
 
     this._postalService.channelSubscribe(channelName, callback);
   }
+
   /**
    *  send data channel
    */
