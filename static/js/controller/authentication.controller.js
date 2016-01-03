@@ -5,12 +5,12 @@ class AuthenticationController {
    * @param {UserService} userService
    * @ngInject
    */
+
   constructor($scope, $location, userService) {
     this._$scope = $scope;
     this._$location = $location;
     this._userService = userService;
-    this.authSendObj = {name: '', password: '', login: true};
-    console.log('AuthenticationController');
+    this.authSendObj = {name: '', password: '', login: false};
   }
 
   submitRegistration() {

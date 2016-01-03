@@ -1,13 +1,25 @@
 {
   "0": {
     "userServerData": {
-      "name": "d3",
-      "password": "d",
-      "login": true
+      "name": "d",
+      "password": "d3",
+      "login": false
     },
     "whoami": {
-      "name": "d3",
-      "login": true,
+      "name": "d",
+      "login": false,
+      "path": "/home"
+    }
+  },
+  "1": {
+    "userServerData": {
+      "name": "dfff",
+      "password": "3",
+      "login": false
+    },
+    "whoami": {
+      "name": "dfff",
+      "login": false,
       "path": "/home"
     }
   }

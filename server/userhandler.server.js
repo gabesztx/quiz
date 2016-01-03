@@ -24,13 +24,13 @@ let userHandler = {
         users[userId] = {
           'userServerData': userdata,
           'whoami': {
-            'name': userdata.name,
-            'login': userdata.login,
-            'path': '/home'
+            name: userdata.name,
+            login: userdata.login,
+            path: '/home'
           }
         };
         fileHandler.setUserdataToJson(users);
-        cookieHandler.setCookie(res, userId);
+        cookieHandler.setCookie(req, res, userId);
         resolve(users[userId].whoami);
         userId++;
       }
@@ -39,8 +39,12 @@ let userHandler = {
   },
 
   getWhoAmI: (req) => {
+
     const user = users[cookieHandler.getCookie(req)].whoami;
-    return user.login ? user : '/authentication';
+    if(!user.login){
+      console.log('mehet');
+    }
+    return user.login ? user : {};
   }
 
 
