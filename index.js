@@ -24,17 +24,6 @@ app
 app.get('/', (req, res)=> {
   res.sendFile(__dirname + '/index.html');
 });
-
-
-
-
-//cookieHandler(app);
-
-/*app.post('/register', function (req, res) {
- //console.log('register');
- //console.log(req.body.name);
- //res.send('post ok');
- });*/
 server.listen(port);
 authentication(app);
 connection(io);

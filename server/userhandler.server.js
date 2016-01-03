@@ -1,62 +1,107 @@
-//const jsonfile = require('jsonfile');
-//const file = 'data.json';
-//jsonfile.readFile(file, function(err, obj) {});
 'use strict';
-const users = {
-  'userServer':{},
-  'whoamI':{}
+const jsonfile = require('jsonfile');
+const cookieHandler = require('./cookie.handler.server.js');
+let users = {};
+let userId;
+
+const chekUsers = (users, userName, userObj, userObjKey)=> {
+  let isAlready = false;
+  Object.keys(users).forEach((key) => {
+    if (userName === users[key][userObj][userObjKey]) {
+      isAlready = true;
+    }
+  });
+  return isAlready;
 };
-//const users = {};
 
-const userHandler = {
-  setUser:(userdata, callback)=>{
+let userHandler = {
+  registerUser: (userdata, req, res)=> {
+    return new Promise((resolve, reject) => {
+      if (chekUsers(users, userdata.name, 'userServerData', 'name')) {
+        console.log('ERROR');
+        reject(authError.registerError)
+      } else {
+        users[userId] = {
+          'userServerData': userdata,
+          'whoami': {
+            'name': userdata.name,
+            'login': userdata.login,
+            'flow': '/home'
+          }
+        };
+        fileHandler.setUserdataToJson(users);
+        cookieHandler.setCookie(res, userId);
+        resolve(users[userId].whoami);
+        userId++;
+      }
+    });
 
-    const key = userdata.name;
-    users.userServer[key] = userdata;
-    users.whoamI[key] = {
-      'name'        : key,
-      'id'          : 'socketId',
-      'characterId' : 'a1',
-      'endPos'      : 'end'
-    };
+  },
+  getWhoAmI: (req) => {
+    const user = users[cookieHandler.getCookie(req)].whoami;
+    return user.login ? user.flow : '/authentication';
+  }
 
-    callback(users.whoamI[key]);
-  },
-  getUser:()=>{
 
-  },
 
-  addUser: (data, socketID)=> {
-    const user = {
-      'name'        : data.userName,
-      'id'          : socketID,
-      'characterId' : data.characterId,
-      'endPos'      : parseInt(Math.random() * 100)
-    };
-    users[socketID] = user;
-    return user;
+
+  /* setFileDataBase: (users)=> {
+   fileHandler.setUserdataToJson(users);
+   },*/
+  /*
+   addUser: (data, socketID)=> {
+   const user = {
+   'name': data.userName,
+   'id': socketID,
+   'characterId': data.characterId,
+   'endPos': parseInt(Math.random() * 100)
+   };
+   users[socketID] = user;
+   return user;
+   },
+   removeUser: (userId)=> {
+   delete users[userId];
+   return users;
+   },
+   getUserList: ()=> {
+   return users;
+   },
+   addUserPosition: (userId, pos)=> {
+   users[userId].endPos = pos;
+   return users;
+   }*/
+};
+
+const fileHandler = {
+  file: 'data.json',
+  setUserdataToJson: (dataBase)=> {
+    jsonfile.writeFileSync(fileHandler.file, dataBase, {spaces: 2});
   },
-  removeUser: (userId)=> {
-    delete users[userId];
-    return users;
-  },
-  getUserList: ()=> {
-    return users;
-  },
-  addUserPosition: (userId, pos)=> {
-    users[userId].endPos = pos;
-    return users;
+  getUserdataToJson: ()=> {
+    jsonfile.readFile(fileHandler.file, (err, obj) => {
+      users = obj || {};
+      userId = Object.keys(users).length;
+    });
   }
 };
-/*const setUserdataToJson = (userData)=> {
- jsonfile.writeFileSync(file, userData, {spaces: 2});
- };*/
+
+const authError = {
+  'registerError': {
+    'error': 'Username or password is already!'
+  },
+  'loginError': {
+    'error': 'Invalide username or password!'
+  }
+};
+
+
+fileHandler.getUserdataToJson();
 
 module.exports = {
-  'getUser'     : userHandler.getUser,
-  'setUser'     : userHandler.setUser,
-  'addUser'     : userHandler.addUser,
-  'addEndPos'   : userHandler.addUserPosition,
-  'removeUser'  : userHandler.removeUser,
-  'getUserList' : userHandler.getUserList
+  'getWhoAmI': userHandler.getWhoAmI,
+  'registerUser': userHandler.registerUser,
+  'addUser': userHandler.addUser,
+  'addEndPos': userHandler.addUserPosition,
+  'removeUser': userHandler.removeUser,
+  'getUserList': userHandler.getUserList
 };

@@ -1,31 +1,26 @@
 'use strict';
-const cookieHandler = require('./cookie.handler.server.js');
-const userhandler = require('./userhandler.server.js');
-const loadsh = require('./../bower_components/lodash/lodash.min.js');
 
+const userhandler = require('./userhandler.server.js');
+//const loadsh = require('./../bower_components/lodash/lodash.min.js');
 const authentication = (app)=> {
+
   app.post('/register', (req, res)=> {
-    const setCookie = (name, secret) => {
-      res.cookie(name, secret);
-    };
-    const setObj = (whoami) => {
-      res.send(whoami);
-    };
-    const getSecret = () => {
-      return cookieHandler.setSecretCookie(req.body.name);
-    };
-    userhandler.setUser(req.body, (response)=> {
-      if (loadsh._.has(req.cookies, response.name)) {
-        setObj(response);
-      } else {
-        setCookie(response.name, getSecret());
-        setObj(response);
-      }
-    });
+    userhandler.registerUser(req.body, req, res)
+      .then(
+        (success)=> {
+          res.send(success);
+        },
+        (error)=> {
+          res.send(error);
+        }
+      );
   });
+
+  app.get('/whoami', (req, res)=> {
+    res.send(userhandler.getWhoAmI(req));
+  })
 };
 
 module.exports = (app)=> {
   authentication(app);
 };
-

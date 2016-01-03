@@ -13,17 +13,15 @@ class UserService {
     this._httpService = httpService;
     this._userData = null;
   }
+
   userLogin() {
-  
+
   }
-  userRegister(regData) {
-    this._httpService.register(regData);
-    //console.log();
+
+  userRegister(regData, callback) {
+    return this._httpService.register(regData, callback);
   }
-  getUser() {
-    //const defer = this._$q.defer();
-    //return defer.promise;
-  }
+
 
   clearUserData() {
     this._userData = null;

@@ -1,1 +1,14 @@
-{}
+{
+  "0": {
+    "userServerData": {
+      "name": "g",
+      "password": "g",
+      "login": true
+    },
+    "whoami": {
+      "name": "g",
+      "login": true,
+      "flow": "/home"
+    }
+  }
+}

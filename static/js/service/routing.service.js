@@ -7,22 +7,30 @@ class RoutingService {
    * @param {HttpService} httpService
    * @ngInject
    */
+
   constructor($q, $location, httpService, ROUTES) {
     this._$q = $q;
     this._$location = $location;
     this._httpService = httpService;
     this._routes = ROUTES;
-
   }
+
   getValidationChange(promise) {
     const locationPath = this._$location.path();
     const getCookie = Cookies.get().hasOwnProperty('quiz-token');
-    if(!getCookie && locationPath === this._routes.urlPath.authentication){
+    if (!getCookie && locationPath === this._routes.urlPath.authentication) {
       promise.resolve();
+      return;
     }
-    if(!getCookie && locationPath !== this._routes.urlPath.authentication){
-      this._$location.path(this._routes.urlPath.authentication)
-    }
+
+    this._httpService.whoami((res)=> {
+      console.log(res.data);
+    });
+
+    /*    if(!getCookie && locationPath !== this._routes.urlPath.authentication){
+     this._$location.path(this._routes.urlPath.authentication);
+     return;
+     }*/
   }
 }
 export default RoutingService

@@ -1,17 +1,27 @@
 class AuthenticationController {
   /**
    * @param $scope
+   * @param $location
    * @param {UserService} userService
    * @ngInject
    */
-  constructor($scope, userService) {
+  constructor($scope, $location, userService) {
     this._$scope = $scope;
+    this._$location = $location;
     this._userService = userService;
-    this.authSendObj = {name:'',password:''};
+    this.authSendObj = {name: '', password: '', login: true};
   }
-  
-  submitRegistration(){
-    this._userService.userRegister(this.authSendObj)
+
+  submitRegistration() {
+    this._userService.userRegister(this.authSendObj, (res)=> {
+      this.errorMsg = '';
+      if (res.error) {
+        this.errorMsg = res.error;
+        return;
+      }
+      console.log('RESPONSE', res);
+
+    })
   }
 }
 export default AuthenticationController;

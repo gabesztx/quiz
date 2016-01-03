@@ -12,23 +12,35 @@ class HttpService {
   }
 
   /**
+   * @param return whoami
+   */
+  register(regData, callback) {
+    this._$http
+      .post('/register', regData)
+      .then(
+        (res)=> {
+          callback(res.data);
+        }
+      )
+  }
+
+  /**
    * @param return userData
    */
-  register(regData) {
-      this._$http
-        .post('/register', regData)
-        .then(
-          (res)=> {
-            console.log(res.data);
-          }
-        )
+  whoami(callback) {
+    this._$http
+      .get('/whoami')
+      .then(
+        (res)=> {
+          callback(res)
+        }
+      )
   }
 
   /**
    *  subscribe channel to postal
    */
   watchData(callback, channelName) {
-
     this._postalService.channelSubscribe(channelName, callback);
   }
 

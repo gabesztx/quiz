@@ -2,24 +2,24 @@
 
 const privatekey = 'lorem ipsum dolor secre key';
 const encryptor = require('simple-encryptor')(privatekey);
-
-//var obj = {name: 'meszi:_12'};
+//const loadsh = require('./../bower_components/lodash/lodash.min.js');
 
 
 const cookieHandler = {
-  setSecretCookie: (value)=> {
-    const randomSecret = value + parseInt(Math.random() * 100);
-    const encrypted = encryptor.encrypt(randomSecret);
-    return encrypted;
-    //console.log(encryptor.decrypt(encrypted));
-    //console.log(req.signedCookies['name']);
+  setCookie: (res, userValue) => {
+    res.cookie('quiz-token', cookieHandler.encodeSecretCookie(userValue));
   },
-  getSecretCookie: ()=> {
-    //console.log(req.signedCookies['name']);
+  encodeSecretCookie: (value)=> {
+    return encryptor.encrypt(value);
+  },
+  getCookie: (req) => {
+    return cookieHandler.decodeSecretCookie(req.cookies['quiz-token']);
+  },
+  decodeSecretCookie: (value)=> {
+    return encryptor.decrypt(value);
   }
 };
-
 module.exports = {
-  'setSecretCookie': cookieHandler.setSecretCookie,
-  'getSecretCookie': cookieHandler.getSecretCookie
+  'setCookie': cookieHandler.setCookie,
+  'getCookie': cookieHandler.getCookie
 };
