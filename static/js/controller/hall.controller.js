@@ -8,6 +8,7 @@ class HallController {
    * @ngInject
    */
   constructor($scope, $timeout, socketService) {
+
     this._$scope = $scope;
     this._$timeout = $timeout;
     this.userListData = {};

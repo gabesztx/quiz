@@ -71,6 +71,8 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
       .otherwise({redirectTo: ROUTES.urlPath.authentication})
   })
   .run(/* @ngInject */ ($rootScope) => {
+
+
   });
 /*$(function () {
  FastClick.attach(document.body);

@@ -9,10 +9,7 @@ class WelcomeController {
     this._$scope = $scope;
     this._$location = $location;
     this._routes = ROUTES;
-  }
-
-  pathLink() {
-    this._$location.path(this._routes.setting);
+    console.log('WelcomeController');
   }
 }
 export default WelcomeController ;

@@ -10,6 +10,7 @@ class AuthenticationController {
     this._$location = $location;
     this._userService = userService;
     this.authSendObj = {name: '', password: '', login: true};
+    console.log('AuthenticationController');
   }
 
   submitRegistration() {
@@ -19,7 +20,7 @@ class AuthenticationController {
         this.errorMsg = res.error;
         return;
       }
-      console.log('RESPONSE', res);
+      this._$location.path(res.path);
 
     })
   }

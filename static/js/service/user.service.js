@@ -19,16 +19,25 @@ class UserService {
   }
 
   userRegister(regData, callback) {
-    return this._httpService.register(regData, callback);
+    return this._httpService.register(regData, (res)=> {
+      this._userData = res;
+      callback(this._userData);
+    });
   }
 
+  getWhoAmI(callback) {
+    return this._httpService.whoami((res)=> {
+      this._userData = res;
+      callback(this._userData);
+    });
+  }
+
+  getUserData() {
+    return this._userData;
+  }
 
   clearUserData() {
     this._userData = null;
-  }
-
-  get userData() {
-    return this._userData;
   }
 
 }

@@ -1,16 +1,17 @@
 const baseURL = './static/template';
 const routes = {
-  urlPath:{
+
+  urlPath: {
     authentication: '/authentication',
     home: '/home',
     profilesetting: '/profilesetting'
   },
-  urlTemplate:{
+
+  urlTemplate: {
     authentication: baseURL + '/authentication.html',
     home: baseURL + '/welcome.html',
     profilesetting: baseURL + '/profilesetting.html'
   }
-
 
 };
 

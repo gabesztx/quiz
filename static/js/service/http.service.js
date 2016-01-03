@@ -32,7 +32,7 @@ class HttpService {
       .get('/whoami')
       .then(
         (res)=> {
-          callback(res)
+          callback(res.data)
         }
       )
   }

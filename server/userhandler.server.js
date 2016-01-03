@@ -26,7 +26,7 @@ let userHandler = {
           'whoami': {
             'name': userdata.name,
             'login': userdata.login,
-            'flow': '/home'
+            'path': '/home'
           }
         };
         fileHandler.setUserdataToJson(users);
@@ -37,12 +37,11 @@ let userHandler = {
     });
 
   },
+
   getWhoAmI: (req) => {
     const user = users[cookieHandler.getCookie(req)].whoami;
-    return user.login ? user.flow : '/authentication';
+    return user.login ? user : '/authentication';
   }
-
-
 
 
   /* setFileDataBase: (users)=> {
