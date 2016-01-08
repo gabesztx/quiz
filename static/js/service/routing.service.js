@@ -5,6 +5,7 @@ class RoutingService {
    * @param $rootScope
    * @param $location
    * @param $window
+   * @param ROUTES
    * @param {UserService} userService
    * @ngInject
    */
@@ -39,20 +40,16 @@ class RoutingService {
       promise.resolve();
       return;
     }
-    //TODO: loginUrl true / falset lekezelni
+
     if (!this._userService.getUserData() && getCookie) {
-    //if (!this._userService.getUserData()) {
       this._userService.getWhoAmI((user)=> {
         if(!user.login){
           this._$window.location.reload();
         }
         if (isLoginUrl) {
-          console.log('oda ugrik ahgol volt');
           this._$location.path(user.path);
         }
-        //promise.resolve();
       });
-      //return;
     }
     console.log('resolve');
     promise.resolve();

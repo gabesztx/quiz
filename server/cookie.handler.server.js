@@ -7,15 +7,12 @@ const encryptor = require('simple-encryptor')(privatekey);
 
 const cookieHandler = {
   setCookie: (req, res, userValue) => {
-    //console.log('ADD COOOKIE', userValue.id);
-    res.cookie('quiz-token', cookieHandler.encodeSecretCookie(userValue.id));
-
+    res.cookie('quiz-token', cookieHandler.encodeSecretCookie(userValue));
   },
   encodeSecretCookie: (value)=> {
     return encryptor.encrypt(value);
   },
   getCookie: (req) => {
-    //console.log('GET COOOKIE', cookieHandler.decodeSecretCookie(req.cookies['quiz-token']));
     return cookieHandler.decodeSecretCookie(req.cookies['quiz-token']);
   },
   decodeSecretCookie: (value)=> {

@@ -39,9 +39,9 @@ let userHandler = {
   },
 
   getWhoAmI: (req, res) => {
-    const user = users[cookieHandler.getCookie(req)].whoami;
+    const user = users[cookieHandler.getCookie(req).id].whoami;
     if (!user.login) {
-      console.log('getWhoAmI tööörlés');
+      console.log('getWhoAmI and deleted cookie');
       cookieHandler.clearCookie(res);
     }
     return user.login ? user : {};
