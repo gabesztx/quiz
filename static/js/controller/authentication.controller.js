@@ -10,7 +10,12 @@ class AuthenticationController {
     this._$scope = $scope;
     this._$location = $location;
     this._userService = userService;
-    this.authSendObj = {name: '', password: '', login: false};
+    this.authSendObj =
+    {
+      name: '',
+      password: '',
+      login: true
+    };
   }
 
   submitRegistration() {

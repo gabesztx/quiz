@@ -1,3 +1,4 @@
+
 .authentication {
   margin-top: 20px;
   .welcome {
@@ -5,43 +6,112 @@
     text-align: center;
     margin-bottom: 20px;
   }
-  .form-horizontal{
+  .form-horizontal {
     margin: 0;
   }
   .form-group {
     margin: 0;
     padding: 0;
-    .error-handling{
+    .error-handling {
       padding-top: 15px;
       text-align: center;
     }
   }
+  .checkbox-content {
+    margin-left: 15px;
+    input[type="checkbox"] {
+      display: none;
+    }
+    input[type="checkbox"] + label .checkbox-anim {
+      position: absolute;
+      cursor: pointer;
+      width: 17px;
+      height: 17px;
+      left: 0;
+      top: 2px;
+      &:before {
 
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 17px;
+        height: 17px;
+        border: 1px solid #ccc;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        .checkboxAnim;
+
+      }
+      &:after {
+        position: absolute;
+        content: ' ';
+        opacity: 0;
+        -webkit-transform: scale(0) rotate(80deg);
+        transform: scale(0) rotate(80deg);
+        width: 22px;
+        height: 9px;
+        border-bottom: 2px solid #009688;
+        border-left: 2px solid #009688;
+        border-bottom-left-radius: 2px;
+        left: -1px;
+        top: 1px;
+        .checkboxAnim;
+
+      }
+    }
+    input[type="checkbox"]:checked + label .checkbox-anim {
+      &:before {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+      &:after {
+        transform: scale(1) rotate(-50deg);
+        opacity: 1;
+      }
+    }
+    span {
+      margin-left: 22px;
+      color: #BDBDBD;
+      font-size: 14px;
+    }
+
+  }
   .submit-content {
     margin-top: 20px;
 
-    .submit-btn-content{
+    .submit-btn-content {
       text-align: center;
       height: 28px;
-      .or-table{
+      .or-table {
         display: table;
         width: 100%;
         height: 100%;
-        .or-table-cell{
+        .or-table-cell {
           display: table-cell;
           vertical-align: middle;
-          div{
+          div {
             font-size: 15px;
           }
         }
       }
-      button:focus{
+      button:focus {
         outline: 0;
       }
-      button{
+      button {
         margin: 0;
 
       }
     }
   }
 }
+
+/* mixin */
+.checkboxAnim {
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+

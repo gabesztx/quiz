@@ -39,7 +39,7 @@ let userHandler = {
   },
 
   getWhoAmI: (req, res) => {
-    const user = users[cookieHandler.getCookie(req).id].whoami;
+    const user = users[cookieHandler.getCookie(req).id] ? users[cookieHandler.getCookie(req).id].whoami : {};
     if (!user.login) {
       console.log('getWhoAmI and deleted cookie');
       cookieHandler.clearCookie(res);

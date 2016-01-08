@@ -8,6 +8,7 @@ const encryptor = require('simple-encryptor')(privatekey);
 const cookieHandler = {
   setCookie: (req, res, userValue) => {
     res.cookie('quiz-token', cookieHandler.encodeSecretCookie(userValue));
+    return this;
   },
   encodeSecretCookie: (value)=> {
     return encryptor.encrypt(value);
@@ -20,6 +21,7 @@ const cookieHandler = {
   },
   clearCookie: (res)=> {
     res.clearCookie('quiz-token');
+    return this;
   }
 };
 module.exports = {
