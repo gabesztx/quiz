@@ -30,7 +30,7 @@ let userHandler = {
           }
         };
         fileHandler.setUserdataToJson(users);
-        cookieHandler.setCookie(req, res, userId);
+        cookieHandler.setCookie(req, res, {'id':userId, 'login':userdata.login});
         resolve(users[userId].whoami);
         userId++;
       }
@@ -38,11 +38,11 @@ let userHandler = {
 
   },
 
-  getWhoAmI: (req) => {
-
+  getWhoAmI: (req, res) => {
     const user = users[cookieHandler.getCookie(req)].whoami;
-    if(!user.login){
-      console.log('mehet');
+    if (!user.login) {
+      console.log('getWhoAmI tööörlés');
+      cookieHandler.clearCookie(res);
     }
     return user.login ? user : {};
   }

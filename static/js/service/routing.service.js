@@ -4,13 +4,15 @@ class RoutingService {
   /**
    * @param $rootScope
    * @param $location
+   * @param $window
    * @param {UserService} userService
    * @ngInject
    */
 
-  constructor($rootScope, $location, userService, ROUTES) {
+  constructor($rootScope, $location, $window, userService, ROUTES) {
     this._$rootScope = $rootScope;
     this._$location = $location;
+    this._$window = $window;
     this._userService = userService;
     this._routes = ROUTES;
     this.getValidationUrlChange();
@@ -23,11 +25,14 @@ class RoutingService {
     const getCookie = Cookies.get().hasOwnProperty('quiz-token');
 
     if (!getCookie) {
+      console.log('clear data');
       this._userService.clearUserData();
     }
 
     if (!getCookie && !this._userService.getUserData()) {
       this._$location.path(this._routes.urlPath.authentication);
+      promise.resolve();
+      return;
     }
 
     if (!getCookie && isLoginUrl) {
@@ -36,18 +41,20 @@ class RoutingService {
     }
     //TODO: loginUrl true / falset lekezelni
     if (!this._userService.getUserData() && getCookie) {
-
+    //if (!this._userService.getUserData()) {
       this._userService.getWhoAmI((user)=> {
-
-        console.log(!user.login);
-        //console.log(this._userService.getUserData());
+        if(!user.login){
+          this._$window.location.reload();
+        }
         if (isLoginUrl) {
+          console.log('oda ugrik ahgol volt');
           this._$location.path(user.path);
         }
         //promise.resolve();
       });
       //return;
     }
+    console.log('resolve');
     promise.resolve();
   }
 

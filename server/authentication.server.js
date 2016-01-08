@@ -17,7 +17,7 @@ const authentication = (app)=> {
   });
 
   app.get('/whoami', (req, res)=> {
-    res.send(userhandler.getWhoAmI(req));
+    res.send(userhandler.getWhoAmI(req,res));
   })
 };
 
