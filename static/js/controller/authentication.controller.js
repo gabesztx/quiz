@@ -1,20 +1,24 @@
 class AuthenticationController {
   /**
    * @param $scope
+   * @param $rootScope
    * @param $location
+   * @param $timeout
    * @param {UserService} userService
    * @ngInject
    */
 
-  constructor($scope, $location, userService) {
+  constructor($scope, $rootScope, $location, $timeout, userService) {
     this._$scope = $scope;
     this._$location = $location;
+    this._$timeout = $timeout;
     this._userService = userService;
+
     this.authSendObj =
     {
       name: '',
       password: '',
-      login: true
+      login: false
     };
   }
 
@@ -26,7 +30,17 @@ class AuthenticationController {
         return;
       }
       this._$location.path(res.path);
+    })
+  }
 
+  submitLogin() {
+    this._userService.userLogin(this.authSendObj, (res)=> {
+      this.errorMsg = '';
+      if (res.error) {
+        this.errorMsg = res.error;
+        return;
+      }
+      this._$location.path(res.path);
     })
   }
 }

@@ -7,6 +7,7 @@ class UserService {
    * @param {HttpService} httpService
    * @ngInject
    */
+
   constructor($q, $location, httpService) {
     this._$q = $q;
     this._$location = $location;
@@ -14,8 +15,11 @@ class UserService {
     this._userData = null;
   }
 
-  userLogin() {
-
+  userLogin(logData, callback) {
+    return this._httpService.login(logData, (res)=> {
+      this._userData = res;
+      callback(this._userData);
+    });
   }
 
   userRegister(regData, callback) {

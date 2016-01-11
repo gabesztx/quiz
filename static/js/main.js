@@ -1,4 +1,5 @@
 import RoutingService from './service/routing.service.js';
+import RoutingAnimService from './service/routinganim.service.js';
 import UserService from './service/user.service.js';
 import PostalService from './service/postal.service.js';
 import HttpService from './service/http.service.js';
@@ -16,28 +17,27 @@ import {CharacterConfig,isIE} from './storage/config.js';
 import {ROUTES} from './storage/routeUrl.js';
 
 const getConfigRouting = (templateUrl)=> {
-  return {
-    templateUrl: templateUrl,
+  const config = {
     resolve: {
-      getUserData: ($q, $location, routingService)=> {
+      getUserData: ($q, routingService)=> {
         const defer = $q.defer();
         routingService.getValidationChange(defer);
         return defer.promise;
-
-        /*const slideDom = document.querySelector('.slide-anim');
-         const slideAnimEvent = ()=> {
-         slideDom.removeEventListener("transitionend", slideAnimEvent);
-         console.log('End');
-         //defer.resolve();
-         };
-         if (!slideDom) {
-         return false;
-         }
-         console.log('go');
-         slideDom.addEventListener("transitionend", slideAnimEvent);*/
+      },
+      isLogin: ($q, routingService)=> {
+        const defer = $q.defer();
+        routingService.isLoginChange(defer);
+        return defer.promise;
       }
     }
+  };
+  if (templateUrl) {
+    config.templateUrl = templateUrl;
+  } else {
+    config.template = '';
   }
+
+  return config;
 };
 
 angular.module('socketApp', ['ngRoute', 'ngAnimate'])
@@ -45,6 +45,7 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .value('isIE', isIE)
   .value('ROUTES', ROUTES)
   .service('routingService', RoutingService)
+  .service('routingAnimService', RoutingAnimService)
   .service('userService', UserService)
   .service('postalService', PostalService)
   .service('httpService', HttpService)
@@ -70,10 +71,25 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
       .when(ROUTES.urlPath.login, getConfigRouting(ROUTES.urlTemplate.login))
       .otherwise({redirectTo: ROUTES.urlPath.authentication})
   })
-  .run(/* @ngInject */ ($rootScope) => {
-
-
-  });
-/*$(function () {
- FastClick.attach(document.body);
- });*/
+  .run(/* @ngInject */ (routingService) => {
+  })
+ /* .directive('authTemplateHandler', function ($rootScope, routingAnimService) {
+    return {
+      link: (scope, element) => {
+     /!*   const dom = element.children()[0];
+        $rootScope.$watch('down', function (newValue) {
+          if(newValue != undefined && !newValue){
+            console.log('MOOOOST ADD RÁ');
+            const slideAnimEvent = ()=> {
+              dom.removeEventListener("transitionend", slideAnimEvent);
+              console.log(routingAnimService);
+            };
+            dom.addEventListener("transitionend", slideAnimEvent);
+            /!* _slideDom.children[0].addEventListener("transitionend", function (e) {
+             e.stopPropagation();
+             });*!/
+          }
+        });*!/
+      }
+    }
+  });*/

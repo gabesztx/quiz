@@ -1,20 +1,38 @@
-@slideDuration: 0.7s;
 @import 'variables.less';
 @import 'colors.less';
 
 @headerHeight: 50px;
 
+.animProperty {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  transition: all @slideDuration ease-in-out;
+  -webkit-transition: all @slideDuration ease-in-out;
+}
+
+.authAnimProperty {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+}
+
 .slide-anim-left {
   margin-top: @headerHeight+5;
+  .animProperty;
 }
+
 .slide-anim-left.ng-enter, .slide-anim-left.ng-leave {
   display: block;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  transition: all @slideDuration ease-in-out;
-  -webkit-transition: all @slideDuration ease-in-out;
+
 }
 
 .slide-anim-left.ng-enter {
@@ -34,16 +52,19 @@
 
 .slide-anim-down {
   margin-top: 0;
+  .animProperty;
+
 }
+
 .slide-anim-down.ng-enter, .slide-anim-down.ng-leave {
   display: block;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  transition: all @slideDuration ease-in-out;
-  -webkit-transition: all @slideDuration ease-in-out;
+
 }
+
 .slide-anim-down.ng-enter {
   -webkit-transform: translate3d(0, -100%, 0);
   transform: translate3d(0, -100%, 0);
@@ -57,4 +78,15 @@
 .slide-anim-down.ng-leave.ng-leave-active {
   -webkit-transform: translate3d(-0, -100%, 0);
   transform: translate3d(0, -100%, 0);
+}
+
+.login-down {
+  .authAnimProperty;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.login-down.ng-hide {
+  -webkit-transform: translate3d(0, -110%, 0);
+  transform: translate3d(0, -110%, 0);
 }

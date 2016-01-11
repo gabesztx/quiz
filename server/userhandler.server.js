@@ -4,21 +4,67 @@ const cookieHandler = require('./cookie.handler.server.js');
 let users = {};
 let userId;
 
-const chekUsers = (users, userName, userObj, userObjKey)=> {
-  let isAlready = false;
+
+const userChecker = (userName, password, isLogin, checkValue) => {
+  this.action = {
+
+    register: ()=> {
+      let isAlready = false;
+      Object.keys(users).forEach((key) => {
+        if (userName === users[key].userServerData.name) {
+          isAlready = true;
+        }
+      });
+      return isAlready;
+    },
+
+    login: ()=> {
+      let isAlready = false;
+      Object.keys(users).forEach((key) => {
+        if (userName === users[key].userServerData.name && password === users[key].userServerData.password) {
+          if(isLogin !== users[key].userServerData.login){
+            users[key].userServerData.login = isLogin;
+            users[key].whoami.login = isLogin;
+            fileHandler.setUserdataToJson(users);
+          }
+          isAlready = true;
+        }
+      });
+      return isAlready;
+    }
+  };
+
+  return this.action[checkValue]();
+};
+
+const getUserId = (usersName)=> {
+  let userID;
   Object.keys(users).forEach((key) => {
-    if (userName === users[key][userObj][userObjKey]) {
-      isAlready = true;
+    if (users[key].userServerData.name === usersName) {
+      userID = key;
     }
   });
-  return isAlready;
+  return userID
+
 };
 
 let userHandler = {
+
+  loginUser: (userdata, req, res)=> {
+    return new Promise((resolve, reject) => {
+      if (userChecker(userdata.name, userdata.password, userdata.login, 'login')) {
+        const userId = getUserId(userdata.name);
+        cookieHandler.setCookie(req, res, {'id': userId, 'login': userdata.login});
+        reject(users[userId].whoami);
+      } else {
+        reject(authError.loginError)
+      }
+    });
+  },
+
   registerUser: (userdata, req, res)=> {
     return new Promise((resolve, reject) => {
-      if (chekUsers(users, userdata.name, 'userServerData', 'name')) {
-        console.log('ERROR');
+      if (userChecker(userdata.name, userdata.password, userdata.login, 'register')) {
         reject(authError.registerError)
       } else {
         users[userId] = {
@@ -30,7 +76,7 @@ let userHandler = {
           }
         };
         fileHandler.setUserdataToJson(users);
-        cookieHandler.setCookie(req, res, {'id':userId, 'login':userdata.login});
+        cookieHandler.setCookie(req, res, {'id': userId, 'login': userdata.login});
         resolve(users[userId].whoami);
         userId++;
       }
@@ -102,6 +148,7 @@ fileHandler.getUserdataToJson();
 
 module.exports = {
   'getWhoAmI': userHandler.getWhoAmI,
+  'loginUser': userHandler.loginUser,
   'registerUser': userHandler.registerUser,
   'addUser': userHandler.addUser,
   'addEndPos': userHandler.addUserPosition,

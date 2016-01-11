@@ -12,6 +12,21 @@ class HttpService {
   }
 
   /**
+   * @param login
+   * @param return whoami
+   */
+  login(logData, callback) {
+
+    this._$http
+      .post('/login', logData)
+      .then(
+        (res)=> {
+          callback(res.data);
+        }
+      )
+  }
+  /**
+   * @param registration
    * @param return whoami
    */
   register(regData, callback) {

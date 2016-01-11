@@ -8,7 +8,8 @@ const routes = {
   },
 
   urlTemplate: {
-    authentication: baseURL + '/authentication.html',
+    authentication: '',
+    //authentication: baseURL + '/authentication.html',
     home: baseURL + '/welcome.html',
     profilesetting: baseURL + '/profilesetting.html'
   }
