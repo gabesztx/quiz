@@ -10,7 +10,7 @@ class RoutingService {
    * @param {RoutingAnimService} routingAnimService
    * @ngInject
    */
-
+  
   constructor($rootScope, $location, $window, userService, routingAnimService, ROUTES) {
     this._$rootScope = $rootScope;
     this._$location = $location;
@@ -25,14 +25,13 @@ class RoutingService {
 
   isLoginChange(promise) {
     const getCookie = Cookies.get().hasOwnProperty('quiz-token');
-
     /*console.log('cookie: ', getCookie);
     console.log('prevStatus: ', this._prevStatus);
     console.log('rootscope down: ', this._$rootScope.down);
     console.log('userData: ', this._userService.getUserData());*/
 
     if (getCookie !== this._prevStatus && this._$rootScope.down) {
-      console.log('remove auth Template');
+      //console.log('remove auth Template');
       this._routingAnimService.removeAuthTemplate(promise);
       this._prevStatus = getCookie;
       return;
@@ -40,7 +39,7 @@ class RoutingService {
 
     if (getCookie === this._prevStatus) {
       if (this._$location.path() === this._routes.urlPath.authentication) {
-        console.log('set auth Template');
+        //console.log('set auth Template');
         this._routingAnimService.addAuthTemplate();
         this._prevStatus = getCookie;
         return;
@@ -145,4 +144,10 @@ class RoutingService {
     });
   }
 }
+
+
+
+
 export default RoutingService
+
+

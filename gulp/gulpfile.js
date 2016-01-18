@@ -10,9 +10,9 @@ const sourceJs          = './static/js';
 const sourceLess        = './static/less/';
 const target            = './dist';
 
-const targetWebpackFile = require('./static/webpack.js.config.js');
+const targetWebpackFile = require('./static/webpack.config.js');
 const targetLessFiles   = require('./static/less.files.path.js');
-const targetJsFiles     = './static/js.files.path.js';
+const targetJsFiles     = './static/entry.js';
 
 gulp.task('css',()=> {
   return gulp.src(targetLessFiles)

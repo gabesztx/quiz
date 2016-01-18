@@ -2,7 +2,7 @@ require("babel-polyfill");
 
 module.exports = {
   context: __dirname,
-  entry: ["babel-polyfill", "./js.files.path.js"],
+  entry: ["babel-polyfill", "./entry.js"],
   output: {
     path: __dirname+'/dist',
     filename: "main.js"

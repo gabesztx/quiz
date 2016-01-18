@@ -1,3 +1,5 @@
+
+
 import RoutingService from './service/routing.service.js';
 import RoutingAnimService from './service/routinganim.service.js';
 import UserService from './service/user.service.js';
@@ -54,6 +56,8 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .directive('userHandler', () => {
     return new UserHandlerDirective()
   })
+
+
   .directive('userCharacter', () => {
     return new CharacterDirective()
   })
@@ -72,24 +76,5 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
       .otherwise({redirectTo: ROUTES.urlPath.authentication})
   })
   .run(/* @ngInject */ (routingService) => {
-  })
- /* .directive('authTemplateHandler', function ($rootScope, routingAnimService) {
-    return {
-      link: (scope, element) => {
-     /!*   const dom = element.children()[0];
-        $rootScope.$watch('down', function (newValue) {
-          if(newValue != undefined && !newValue){
-            console.log('MOOOOST ADD RÁ');
-            const slideAnimEvent = ()=> {
-              dom.removeEventListener("transitionend", slideAnimEvent);
-              console.log(routingAnimService);
-            };
-            dom.addEventListener("transitionend", slideAnimEvent);
-            /!* _slideDom.children[0].addEventListener("transitionend", function (e) {
-             e.stopPropagation();
-             });*!/
-          }
-        });*!/
-      }
-    }
-  });*/
+  });
+
