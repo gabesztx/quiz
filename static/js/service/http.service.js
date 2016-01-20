@@ -21,19 +21,19 @@ class HttpService {
       .post('/login', logData)
       .then(
         (res)=> {
-          callback(res.data);
+          callback(res);
         }
       )
   }
   /**
    * @param registration
-   * @param return whoami
    */
   register(regData, callback) {
     this._$http
       .post('/register', regData)
       .then(
         (res)=> {
+          console.log('RE', res.data);
           callback(res.data);
         }
       )
@@ -67,3 +67,4 @@ class HttpService {
   }
 }
 export default HttpService
+

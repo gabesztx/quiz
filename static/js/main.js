@@ -1,5 +1,3 @@
-
-
 import RoutingService from './service/routing.service.js';
 import RoutingAnimService from './service/routinganim.service.js';
 import UserService from './service/user.service.js';
@@ -64,7 +62,7 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .controller('authenticationController', AuthenticationController)
   .controller('characterController', CharacterController)
   .controller('userHandlerController', UserHandlerController)
-  .controller('hallController', HallController)
+  //.controller('hallController', HallController)
   .controller('welcomeController', WelcomeController)
   .config(/* @ngInject */ ($routeProvider) => {
 
@@ -78,3 +76,11 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .run(/* @ngInject */ (routingService) => {
   });
 
+
+
+/*
+if (module.hot) {
+  module.hot.accept();
+  //module.hot.dispose(()=> {});
+}
+*/

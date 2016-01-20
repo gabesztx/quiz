@@ -1,9 +1,7 @@
-const sideEffectNode = document.createElement('h3');
-sideEffectNode.setAttribute('style', 'background-color: pink; padding: 0; margin: 0');
-sideEffectNode.textContent = 'Lorem Impsumr';
-
+//import style from './less/App.less';
+const sideEffectNode = document.createElement('div');
+sideEffectNode.textContent = 'Lorem Ipsum1';
 document.body.appendChild(sideEffectNode);
-
 if (module.hot) {
   module.hot.accept();
   module.hot.dispose(()=> {

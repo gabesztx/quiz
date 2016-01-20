@@ -13,7 +13,6 @@ class AuthenticationController {
     this._$location = $location;
     this._$timeout = $timeout;
     this._userService = userService;
-
     this.authSendObj =
     {
       name: '',
@@ -44,5 +43,5 @@ class AuthenticationController {
     })
   }
 }
-export default AuthenticationController;
 
+export default AuthenticationController;

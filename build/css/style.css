@@ -89,7 +89,6 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: blue;
 }
 .content {
   position: absolute;
@@ -114,6 +113,33 @@ body {
   -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15) !important;
   -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15) !important;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+.header-page {
+  position: fixed;
+  display: table;
+  width: 100%;
+  height: 50px;
+  z-index: 5;
+  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
+  background-color: #424242;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0, -55px, 0);
+  margin-bottom: 50px;
+}
+.header-page .header-page-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+.header-page .header-page-cell div {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.active {
+  transform: translate3d(0, 0, 0);
 }
 .authentication {
   margin-top: 20px;
@@ -231,19 +257,6 @@ body {
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
 }
-.character {
-  position: absolute;
-  bottom: 0;
-}
-.character .character-user {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
-}
 .hallroom .lobby-content {
   position: relative;
   margin: auto;
@@ -251,32 +264,3 @@ body {
   height: 150px;
   background-color: grey;
 }
-.header-page {
-  position: fixed;
-  display: table;
-  width: 100%;
-  height: 50px;
-  z-index: 5;
-  -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
-  -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.4);
-  background-color: #424242;
-  transition: all 0.5s ease-in-out;
-  transform: translate3d(0, -55px, 0);
-  margin-bottom: 50px;
-}
-.header-page .header-page-cell {
-  display: table-cell;
-  vertical-align: middle;
-}
-.header-page .header-page-cell div {
-  text-align: center;
-  color: white;
-  font-size: 20px;
-  text-transform: uppercase;
-}
-.active {
-  transform: translate3d(0, 0, 0);
-}
-
-/*# sourceMappingURL=style.css.map*/

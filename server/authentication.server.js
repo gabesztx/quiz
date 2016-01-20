@@ -17,6 +17,7 @@ const authentication = (app)=> {
   });
 
   app.post('/register', (req, res)=> {
+
     userhandler.registerUser(req.body, req, res)
       .then(
         (success)=> {

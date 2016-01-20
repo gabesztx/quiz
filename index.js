@@ -1,34 +1,56 @@
-var WebpackDevServer = require('webpack-dev-server');
-var webpack = require('webpack');
-var config = require('./webpack.config.js');
+'use strict';
 
-var compiler = webpack(config);
-var server = new WebpackDevServer(compiler, {
-  contentBase: './',
-  hot: true,
-  filename: ['main.js'],
-  publicPath: '/',
-  noInfo: false,
-  stats: {
-    colors: true
-  }
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
+
+const connection = require('./server/connection.server.js');
+const authentication = require('./server/authentication.server.js');
+
+const port = process.env.PORT || 5000;
+app
+  .use('/node_modules', express.static(__dirname + '/node_modules'))
+  .use('/bower_components', express.static(__dirname + '/bower_components'))
+  .use('/static', express.static(__dirname + '/static'))
+  .use('/build', express.static(__dirname + '/build'))
+  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({extended: true}))
+  .use(cookieParser());
+
+app.get('/', (req, res)=> {
+  res.sendFile(__dirname + '/index.html');
 });
 
-server.listen(8080, 'localhost', function () {
-});
+server.listen(port);
+authentication(app);
+connection(io);
 
 
-/*import express from 'express';
+/*'use strict';
+
+ import express from 'express';
+ import path from 'path';
+ import http from 'http';
+ import socket from 'socket.io';
  import bodyParser from 'body-parser';
  import cookieParser from 'cookie-parser';
  import connection from './server/connection.server.js';
  import authentication from './server/authentication.server.js';
 
- const app = express();
- const server = require('http').createServer(app);
- const io = require('socket.io')(server);
- const port = process.env.PORT || 5000;
+ import webpack from 'webpack';
+ import webpackMiddleware from 'webpack-dev-middleware';
+ import webpackHotMiddleware from 'webpack-hot-middleware';
+ import config from './webpack.config.js';
 
+
+ const app = express();
+ const port = process.env.PORT || 5000;
+ const server = http.createServer(app);
+ const io = socket(server);
 
  app
  .use('/node_modules', express.static(__dirname + '/node_modules'))
@@ -37,32 +59,28 @@ server.listen(8080, 'localhost', function () {
  .use('/build', express.static(__dirname + '/build'))
  .use(bodyParser.json())
  .use(bodyParser.urlencoded({extended: true}))
- .use(cookieParser());*/
+ .use(cookieParser());
 
-
-/*(function () {
- // Step 1: Create & configure a webpack compiler
- var webpack = require('webpack');
- var webpackConfig = require(process.env.WEBPACK_CONFIG ? process.env.WEBPACK_CONFIG : './webpack.config');
- var compiler = webpack(webpackConfig);
- // Step 2: Attach the dev middleware to the compiler & the server
- app.use(require("webpack-dev-middleware")(compiler,
- {
- noInfo: true,
- publicPath: "/assets/",
- watchOptions: {
- aggregateTimeout: 300,
- poll: true
- },
- headers: {"X-Custom-Header": "yes"},
+ const compiler = webpack(config);
+ const middleware = webpackMiddleware(compiler, {
+ publicPath: config.output.publicPath,
  stats: {
- colors: true
+ colors: true,
+ hash: false,
+ timings: true,
+ chunks: false,
+ chunkModules: false,
+ modules: false
  }
+ });
 
- }));
+ app.use(middleware);
+ app.use(webpackHotMiddleware(compiler));
 
- // Step 3: Attach the hot middleware to the compiler & the server
- app.use(require("webpack-hot-middleware")(compiler, {
- log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
- }));
- })();*/
+ /!*app.get('/', (req, res)=> {
+ res.sendFile(__dirname + '/index.html');
+ });*!/
+
+ authentication(app);
+ connection(io);
+ server.listen(port);*/

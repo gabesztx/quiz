@@ -3,35 +3,36 @@ const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  context: path.join(__dirname, 'static'),
+
+  devtool: 'eval-source-map',
   entry: [
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:8080/',
-    './entry.js'
+    //'webpack-hot-middleware/client?reload=true',
+    path.join(__dirname, 'static/entry.js')
   ],
   output: {
-    path: path.join(__dirname, 'build/js'),
+    path: path.join(__dirname, '/'),
     publicPath: '/',
-    filename: "main.js"
+    filename: 'build/js/main.js'
   },
   watch: true,
-  devtool: "source-map",
   module: {
     loaders: [
       {
         test: /\.css$/,
+        //loader: 'style!css?modules&localIdentName=[name]_[local]_[hash:base64:3]'
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       },
       {
         test: /\.less$/,
+        //loader: 'style!css!less?modules&localIdentName=[name]_[local]_[hash:base64:3]'
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
       },
 
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
         query: {
           plugins: ['syntax-async-functions', 'syntax-decorators'],
@@ -41,21 +42,15 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("../css/style.css"),
-/*    new BrowserSyncPlugin(
-      {
-        files: ['build/css/!*.css'],
-        port: 3000,
-        //proxy: 'http://localhost:8080',
-        open: true,
-        "server": './'
-      }, {
-        reload: false
-      }
-    ),*/
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new ExtractTextPlugin("build/css/style.css"),
+    new HtmlWebpackPlugin({
+      template: 'index.tpl.html',
+      inject: 'body',
+      filename: 'index.html'
+    }),
+    //new webpack.optimize.OccurenceOrderPlugin(),
+    //new webpack.HotModuleReplacementPlugin(),
+    //new webpack.NoErrorsPlugin()
   ]
 };
 

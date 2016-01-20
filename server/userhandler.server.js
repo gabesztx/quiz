@@ -7,7 +7,6 @@ let userId;
 
 const userChecker = (userName, password, isLogin, checkValue) => {
   this.action = {
-
     register: ()=> {
       let isAlready = false;
       Object.keys(users).forEach((key) => {
@@ -33,7 +32,7 @@ const userChecker = (userName, password, isLogin, checkValue) => {
       return isAlready;
     }
   };
-
+  
   return this.action[checkValue]();
 };
 
@@ -63,7 +62,9 @@ let userHandler = {
   },
 
   registerUser: (userdata, req, res)=> {
+
     return new Promise((resolve, reject) => {
+
       if (userChecker(userdata.name, userdata.password, userdata.login, 'register')) {
         reject(authError.registerError)
       } else {
@@ -77,6 +78,7 @@ let userHandler = {
         };
         fileHandler.setUserdataToJson(users);
         cookieHandler.setCookie(req, res, {'id': userId, 'login': userdata.login});
+      
         resolve(users[userId].whoami);
         userId++;
       }
