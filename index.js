@@ -7,7 +7,6 @@ const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-
 const connection = require('./server/connection.server.js');
 const authentication = require('./server/authentication.server.js');
 
