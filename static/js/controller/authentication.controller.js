@@ -19,6 +19,8 @@ class AuthenticationController {
       password: '',
       login: false
     };
+
+    console.log('dsdsssddd');
   }
 
   submitRegistration() {

@@ -18,7 +18,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "body-parser": "^1.14.2",
     "bower": "^1.7.2",
-    "browser-sync": "^2.11.0",
+    "browser-sync": "^2.9.0",
     "browser-sync-webpack-plugin": "^1.0.1",
     "cookie-parser": "^1.4.0",
     "css-loader": "^0.23.1",

@@ -5,7 +5,7 @@ module.exports = {
             "port": 8080
         }
     },
-    "files": ['dist/**/*.*','*.html'],
+    "files": ['build/**/*.*','*.html'],
     "watchOptions": {},
     "server": './',
     "proxy": false,
@@ -36,9 +36,9 @@ module.exports = {
     "scrollProportionally": true,
     "scrollThrottle": 0,
     "scrollRestoreTechnique": "window.name",
-    "scrollElements": [],
+    "scrollElements": ['.scrolled'],
     "scrollElementMapping": [],
-    "reloadDelay": 0,
+    "reloadDelay": 2000,
     "reloadDebounce": 0,
     "plugins": [],
     "injectChanges": true,

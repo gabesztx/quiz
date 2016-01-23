@@ -73,14 +73,9 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
       .when(ROUTES.urlPath.login, getConfigRouting(ROUTES.urlTemplate.login))
       .otherwise({redirectTo: ROUTES.urlPath.authentication})
   })
-  .run(/* @ngInject */ (routingService) => {
-  });
+  .run(/* @ngInject */ (routingService) => {});
 
-
-
-/*
 if (module.hot) {
-  module.hot.accept();
-  //module.hot.dispose(()=> {});
+  //module.hot.accept();
+
 }
-*/
