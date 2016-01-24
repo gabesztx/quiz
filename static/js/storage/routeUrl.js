@@ -1,4 +1,5 @@
-const baseURL = './static/template';
+import WelcomeTemplate from '../../template/welcome.html';
+import ProfileSettingTemplate from '../../template/profilesetting.html';
 const routes = {
 
   urlPath: {
@@ -9,9 +10,8 @@ const routes = {
 
   urlTemplate: {
     authentication: '',
-    //authentication: baseURL + '/authentication.html',
-    home: baseURL + '/welcome.html',
-    profilesetting: baseURL + '/profilesetting.html'
+    home: WelcomeTemplate,
+    profilesetting: ProfileSettingTemplate
   }
 
 };

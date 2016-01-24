@@ -1,0 +1,26 @@
+{
+  "0": {
+    "userServerData": {
+      "name": "a",
+      "password": "a",
+      "login": false
+    },
+    "whoami": {
+      "name": "a",
+      "login": false,
+      "path": "/home"
+    }
+  },
+  "1": {
+    "userServerData": {
+      "name": "k",
+      "password": "kk",
+      "login": true
+    },
+    "whoami": {
+      "name": "k",
+      "login": true,
+      "path": "/home"
+    }
+  }
+}

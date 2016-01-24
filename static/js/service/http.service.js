@@ -21,7 +21,7 @@ class HttpService {
       .post('/login', logData)
       .then(
         (res)=> {
-          callback(res);
+          callback(res.data);
         }
       )
   }
@@ -33,7 +33,6 @@ class HttpService {
       .post('/register', regData)
       .then(
         (res)=> {
-          console.log('RE', res.data);
           callback(res.data);
         }
       )

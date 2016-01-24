@@ -78,6 +78,7 @@ app.use(webpackHotMiddleware(bundler));
   res.sendFile(__dirname + '/index.html');
 });*/
 
+
 authentication(app);
-connection(io);
+//connection(io);
 server.listen(port);

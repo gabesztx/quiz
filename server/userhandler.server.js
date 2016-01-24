@@ -1,73 +1,78 @@
 'use strict';
-const jsonfile = require('jsonfile');
-const cookieHandler = require('./cookie.handler.server.js');
+
+import jsonfile from 'jsonfile';
+import cookieHandler from './cookie.handler.server';
+
 let users = {};
 let userId;
 
+const userValidation = {
 
-const userChecker = (userName, password, isLogin, checkValue) => {
-  this.action = {
-    register: ()=> {
-      let isAlready = false;
-      Object.keys(users).forEach((key) => {
-        if (userName === users[key].userServerData.name) {
-          isAlready = true;
-        }
-      });
-      return isAlready;
-    },
+  /**
+   * check registration is valide
+   */
+  userRegistratonValidation: (userName) => {
+    let isAlready = false;
+    Object.keys(users).forEach((key) => {
+      if (userName === users[key].userServerData.name) {
+        isAlready = true;
+      }
+    });
+    return isAlready;
+  },
 
-    login: ()=> {
-      let isAlready = false;
-      Object.keys(users).forEach((key) => {
-        if (userName === users[key].userServerData.name && password === users[key].userServerData.password) {
-          if(isLogin !== users[key].userServerData.login){
-            users[key].userServerData.login = isLogin;
-            users[key].whoami.login = isLogin;
-            fileHandler.setUserdataToJson(users);
-          }
-          isAlready = true;
+  /**
+   * check login is valide
+   */
+  userLoginValidation: (userName, password, isLogin) => {
+    let isAlready = false;
+    Object.keys(users).forEach((key) => {
+      if (userName === users[key].userServerData.name && password === users[key].userServerData.password) {
+        if (isLogin !== users[key].userServerData.login) {
+          users[key].userServerData.login = isLogin;
+          users[key].whoami.login = isLogin;
+          fileHandler.setUserdataToJson(users);
         }
-      });
-      return isAlready;
-    }
-  };
-  
-  return this.action[checkValue]();
+        isAlready = true;
+      }
+    });
+    return isAlready;
+  }
 };
 
-const getUserId = (usersName)=> {
-  let userID;
-  Object.keys(users).forEach((key) => {
-    if (users[key].userServerData.name === usersName) {
-      userID = key;
-    }
-  });
-  return userID
-
-};
 
 let userHandler = {
-
+  /**
+   * login user handler
+   */
   loginUser: (userdata, req, res)=> {
     return new Promise((resolve, reject) => {
-      if (userChecker(userdata.name, userdata.password, userdata.login, 'login')) {
-        const userId = getUserId(userdata.name);
+      if (userValidation.userLoginValidation(
+          userdata.name,
+          userdata.password,
+          userdata.login)) {
+
+        const userId = userHandler.getUserId(userdata.name);
         cookieHandler.setCookie(req, res, {'id': userId, 'login': userdata.login});
         reject(users[userId].whoami);
-      } else {
-        reject(authError.loginError)
+      }
+      else {
+        reject({'error': 'Invalide username or password!'})
       }
     });
   },
 
+  /**
+   * registration user handler
+   */
   registerUser: (userdata, req, res)=> {
-
     return new Promise((resolve, reject) => {
-
-      if (userChecker(userdata.name, userdata.password, userdata.login, 'register')) {
-        reject(authError.registerError)
-      } else {
+      if (userValidation.userRegistratonValidation(
+          userdata.name,
+          userdata.login)) {
+        reject({'error': 'Username or password is already!'})
+      }
+      else {
         users[userId] = {
           'userServerData': userdata,
           'whoami': {
@@ -78,82 +83,93 @@ let userHandler = {
         };
         fileHandler.setUserdataToJson(users);
         cookieHandler.setCookie(req, res, {'id': userId, 'login': userdata.login});
-      
         resolve(users[userId].whoami);
         userId++;
       }
-    });
-
+    })
   },
 
+  /**
+   * get whoami object handler
+   */
   getWhoAmI: (req, res) => {
-    const user = users[cookieHandler.getCookie(req).id] ? users[cookieHandler.getCookie(req).id].whoami : {};
+    const user =
+      users[cookieHandler.getCookie(req).id] ?
+      users[cookieHandler.getCookie(req).id].whoami : {};
     if (!user.login) {
-      console.log('getWhoAmI and deleted cookie');
+      console.log('deleted cookie from whoami');
       cookieHandler.clearCookie(res);
     }
     return user.login ? user : {};
+  },
+
+  /**
+   * get user id from userServerData
+   */
+  getUserId: (usersName)=> {
+    let userID;
+    Object.keys(users).forEach((key) => {
+      if (users[key].userServerData.name === usersName) {
+        userID = key;
+      }
+    });
+    return userID
   }
-
-
-  /* setFileDataBase: (users)=> {
-   fileHandler.setUserdataToJson(users);
-   },*/
-  /*
-   addUser: (data, socketID)=> {
-   const user = {
-   'name': data.userName,
-   'id': socketID,
-   'characterId': data.characterId,
-   'endPos': parseInt(Math.random() * 100)
-   };
-   users[socketID] = user;
-   return user;
-   },
-   removeUser: (userId)=> {
-   delete users[userId];
-   return users;
-   },
-   getUserList: ()=> {
-   return users;
-   },
-   addUserPosition: (userId, pos)=> {
-   users[userId].endPos = pos;
-   return users;
-   }*/
 };
 
 const fileHandler = {
-  file: 'data.json',
+  /**
+   * set userData to file
+   */
   setUserdataToJson: (dataBase)=> {
     jsonfile.writeFileSync(fileHandler.file, dataBase, {spaces: 2});
   },
+
+  /**
+   * get userData from file
+   */
   getUserdataToJson: ()=> {
     jsonfile.readFile(fileHandler.file, (err, obj) => {
       users = obj || {};
       userId = Object.keys(users).length;
     });
-  }
-};
-
-const authError = {
-  'registerError': {
-    'error': 'Username or password is already!'
   },
-  'loginError': {
-    'error': 'Invalide username or password!'
-  }
-};
 
+  file: 'data.json'
+};
 
 fileHandler.getUserdataToJson();
 
-module.exports = {
+export default {
   'getWhoAmI': userHandler.getWhoAmI,
   'loginUser': userHandler.loginUser,
-  'registerUser': userHandler.registerUser,
-  'addUser': userHandler.addUser,
+  'registerUser': userHandler.registerUser
+/*  'addUser': userHandler.addUser,
   'addEndPos': userHandler.addUserPosition,
   'removeUser': userHandler.removeUser,
-  'getUserList': userHandler.getUserList
+  'getUserList': userHandler.getUserList*/
 };
+
+
+/*
+ addUser: (data, socketID)=> {
+ const user = {
+ 'name': data.userName,
+ 'id': socketID,
+ 'characterId': data.characterId,
+ 'endPos': parseInt(Math.random() * 100)
+ };
+ users[socketID] = user;
+ return user;
+ },
+ removeUser: (userId)=> {
+ delete users[userId];
+ return users;
+ },
+ getUserList: ()=> {
+ return users;
+ },
+ addUserPosition: (userId, pos)=> {
+ users[userId].endPos = pos;
+ return users;
+ }*/

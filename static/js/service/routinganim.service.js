@@ -1,5 +1,7 @@
 'use strict';
-const baseURL = './static/template';
+
+const auth = './static/template/authentication.html';
+
 class RoutingAnimService {
   /**
    * @param $rootScope
@@ -25,7 +27,7 @@ class RoutingAnimService {
       }, 150);
     });
     this._$timeout(()=> {
-      this._$rootScope.isAuth = baseURL + '/authentication.html';
+      this._$rootScope.isAuth = auth;
     });
 
   }

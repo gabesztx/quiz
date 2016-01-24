@@ -33,7 +33,7 @@ module.exports = {
     "hostnameSuffix": false,
     "reloadOnRestart": false,
     "notify": true,
-    "scrollProportionally": true,
+    "scrollProportionally": false,
     "scrollThrottle": 0,
     "scrollRestoreTechnique": "window.name",
     "scrollElements": ['.scrolled'],

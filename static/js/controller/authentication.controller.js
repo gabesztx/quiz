@@ -19,8 +19,7 @@ class AuthenticationController {
       password: '',
       login: false
     };
-
-    console.log('dsdsssddd');
+    console.log('AuthenticationController');
   }
 
   submitRegistration() {
@@ -41,6 +40,7 @@ class AuthenticationController {
         this.errorMsg = res.error;
         return;
       }
+      console.log('SUUUBMIT OOK', res);
       this._$location.path(res.path);
     })
   }

@@ -31,14 +31,17 @@ module.exports = {
         loader: 'style!css!less?modules&localIdentName=[name]_[local]_[hash:base64:3]'
         //loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
       },
-
       {
         test: /\.jsx?$/,
         loader: "babel-loader",
         query: {
-          plugins: ['syntax-async-functions', 'syntax-decorators'],
-          presets: ['es2015', 'stage-0']
+          presets: ['es2015', 'stage-0'],
+          plugins: ['syntax-async-functions', 'syntax-decorators']
         }
+      },
+      {
+        test: /\.html$/,
+        loader: "raw-loader"
       }
     ]
   },
@@ -51,16 +54,21 @@ module.exports = {
     }),
     new BrowserSyncPlugin({
         host: 'localhost',
+        ui: {
+          port: 8080,
+          weinre: {
+            port: 9090
+          }
+        },
+        open: false,
+        proxy: 'http://localhost:5000',
         scrollElements: ['.scroller'],
-        files: ['build/**/*.*', '*.html'],
-        port: 3000,
-        proxy: 'http://localhost:5000'
+        files: ['build/**/*.*', '*.html']
       },
       {
         reload: false
       }
     ),
-
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()

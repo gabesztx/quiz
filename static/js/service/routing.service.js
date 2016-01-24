@@ -10,7 +10,7 @@ class RoutingService {
    * @param {RoutingAnimService} routingAnimService
    * @ngInject
    */
-  
+
   constructor($rootScope, $location, $window, userService, routingAnimService, ROUTES) {
     this._$rootScope = $rootScope;
     this._$location = $location;
@@ -20,15 +20,14 @@ class RoutingService {
     this._routes = ROUTES;
     this._prevStatus = false;
     this.getValidationUrlChange();
-
   }
 
   isLoginChange(promise) {
     const getCookie = Cookies.get().hasOwnProperty('quiz-token');
     /*console.log('cookie: ', getCookie);
-    console.log('prevStatus: ', this._prevStatus);
-    console.log('rootscope down: ', this._$rootScope.down);
-    console.log('userData: ', this._userService.getUserData());*/
+     console.log('prevStatus: ', this._prevStatus);
+     console.log('rootscope down: ', this._$rootScope.down);
+     console.log('userData: ', this._userService.getUserData());*/
 
     if (getCookie !== this._prevStatus && this._$rootScope.down) {
       //console.log('remove auth Template');
@@ -47,7 +46,7 @@ class RoutingService {
     }
 
     if (!getCookie && this._routes.urlPath.authentication === this._$location.path()) {
-      this._routingAnimService.removeHeaderTemplate(()=>{
+      this._routingAnimService.removeHeaderTemplate(()=> {
         this._prevStatus = false;
       });
       promise.resolve();
@@ -91,17 +90,10 @@ class RoutingService {
 
   getValidationUrlChange() {
     this._$rootScope.$on("$routeChangeStart", (event, next, current) => {
-      //console.log('ROUT CHANGE START');
+
       const userData = this._userService.getUserData();
       const loginUrl = this._routes.urlPath.authentication;
       const getCookie = Cookies.get().hasOwnProperty('quiz-token');
-
-
-      /*console.log('getCookie', getCookie);
-       console.log('next', next);
-       console.log('current', current);
-       console.log('userData', userData);*/
-
       const cancelRouting = ()=> {
         event.preventDefault();
       };
@@ -144,8 +136,6 @@ class RoutingService {
     });
   }
 }
-
-
 
 
 export default RoutingService

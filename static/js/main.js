@@ -31,12 +31,12 @@ const getConfigRouting = (templateUrl)=> {
       }
     }
   };
+
   if (templateUrl) {
-    config.templateUrl = templateUrl;
+    config.template = templateUrl;
   } else {
     config.template = '';
   }
-
   return config;
 };
 
@@ -54,7 +54,6 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
   .directive('userHandler', () => {
     return new UserHandlerDirective()
   })
-
 
   .directive('userCharacter', () => {
     return new CharacterDirective()
@@ -74,8 +73,3 @@ angular.module('socketApp', ['ngRoute', 'ngAnimate'])
       .otherwise({redirectTo: ROUTES.urlPath.authentication})
   })
   .run(/* @ngInject */ (routingService) => {});
-
-if (module.hot) {
-  //module.hot.accept();
-
-}
