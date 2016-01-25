@@ -60,7 +60,7 @@ module.exports = {
             port: 9090
           }
         },
-        open: false,
+        open: true,
         proxy: 'http://localhost:5000',
         scrollElements: ['.scroller'],
         files: ['build/**/*.*', '*.html']
