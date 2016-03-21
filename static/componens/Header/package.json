@@ -1,0 +1,6 @@
+{
+  "name": "heder",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./header-directive.js"
+}
