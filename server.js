@@ -1,32 +1,3 @@
-/*'use strict';
-
- const express = require('express');
- const app = express();
- const server = require('http').createServer(app);
- const io = require('socket.io')(server);
- const bodyParser = require('body-parser');
- const cookieParser = require('cookie-parser');
-
- const connection = require('./server/connection.server.js');
- const authentication = require('./server/authentication.server.js');
-
- const port = process.env.PORT || 5000;
- app
- .use('/node_modules', express.static(__dirname + '/node_modules'))
- .use('/bower_components', express.static(__dirname + '/bower_components'))
- .use('/static', express.static(__dirname + '/static'))
- .use('/build', express.static(__dirname + '/build'))
- .use(bodyParser.json())
- .use(bodyParser.urlencoded({extended: true}))
- .use(cookieParser());
-
- app.get('/', (req, res)=> {
- res.sendFile(__dirname + '/index.html');
- });
-
- server.listen(port);
- authentication(app);
- connection(io);*/
 
 
 'use strict';
@@ -47,12 +18,10 @@ import config from './webpack.config.js';
 const app = express();
 const port = process.env.PORT || 5000;
 const server = http.createServer(app);
-const io = socket(server);
-
 app
-  .use('/node_modules', express.static(__dirname + '/node_modules'))
   .use('/bower_components', express.static(__dirname + '/bower_components'))
   .use('/static', express.static(__dirname + '/static'))
+  .use('/node_modules', express.static(__dirname + '/node_modules'))
   .use('/build', express.static(__dirname + '/build'))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({extended: true}))
@@ -73,7 +42,7 @@ const middleware = webpackMiddleware(bundler, {
 
 app.use(middleware);
 app.use(webpackHotMiddleware(bundler));
-
+console.log(http);
 /*app.get('/', (req, res)=> {
   res.sendFile(__dirname + '/index.html');
 });*/
